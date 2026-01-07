@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Автоматизація контролю дебіторки: Інтеграція Вчасно + Банк</title>
+    <meta name="description" content="Впровадження системи автоматичної звірки підписаних актів у «Вчасно» з оплатами по банку. Поверніть «завислі» гроші в бізнес та заощаджуйте час бухгалтера. Налаштування за 10 днів.">
+    <meta name="keywords" content="автоматизація дебіторської заборгованості, контроль оплат від клієнтів, інтеграція вчасно api, звірка банківської виписки, monobank api для бізнесу, повернення боргів b2b">
+    <link rel="canonical" href="https://vchasno-bridge.com.ua/"> <!-- Замініть на ваш домен -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Toastify JS CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Schema.org for Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "VCHASNO: CashFlow-Bridge - Автоматичний контроль дебіторки",
+      "description": "Впровадження системи автоматичної звірки підписаних актів у «Вчасно» з оплатами по банку (Monobank/Privat24). Поверніть «завислі» гроші в бізнес та заощаджуйте час бухгалтера.",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "UA"
+      },
+      "serviceType": "Фінансова автоматизація",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "UAH",
+        "price": "За запитом"
+      }
+    }
+    </script>
+
+    <style>
+        /* Custom styles for form validation */
+        input:required:invalid, select:required:invalid, textarea:required:invalid {
+            border-color: #ef4444; /* red-500 */
+        }
+        input:required:invalid:focus, select:required:invalid:focus, textarea:required:invalid:focus {
+            outline-color: #ef4444;
+            box-shadow: 0 0 0 2px #fecaca;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <a href="#" class="text-2xl font-bold text-gray-900">VCHASNO</a>
+                <p class="text-xs text-gray-500 -mt-1">Вчасно розпочати — вчасно масштабувати</p>
+            </div>
+            <a href="#form-section" class="hidden sm:inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                Розрахувати вартість
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="bg-white py-16 md:py-24">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                    Перестаньте втрачати гроші: <br class="hidden md:block"> Автоматичний контроль дебіторки <span class="text-blue-600">Вчасно + Банк</span>
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    Готова система, що з'єднує «Вчасно» та ваш банк (Monobank/Privat24), знаходить неоплачені акти і повертає «завислі» гроші в обіг. Впровадження під ключ за 10 днів.
+                </p>
+                <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#form-section" class="w-full sm:w-auto bg-blue-600 text-white font-bold text-lg py-4 px-8 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                        Дізнатись вартість для моєї компанії
+                    </a>
+                </div>
+                <p class="mt-4 text-sm text-gray-500">Разова оплата. Без абонплат. Система назавжди ваша.</p>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section id="problem" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Що ви втрачаєте, контролюючи оплати вручну?</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Ручна звірка — це не просто рутина. Це прямі фінансові та операційні втрати для бізнесу.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pain Point 1: Cash Gaps -->
+                    <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-6">
+                            <i class="fa-solid fa-money-bill-transfer text-2xl text-red-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Касові розриви</h3>
+                        <p class="mt-2 text-gray-600">Ви бачите прибуток по актах, але на рахунках не вистачає грошей для зарплат та податків, бо клієнти не платять вчасно.</p>
+                    </div>
+                    <!-- Pain Point 2: Wasted Time -->
+                    <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 mb-6">
+                            <i class="fa-solid fa-hourglass-half text-2xl text-yellow-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">10-15 годин часу бухгалтера</h3>
+                        <p class="mt-2 text-gray-600">Щомісяця ваш ключовий фінансовий спеціаліст займається механічною звіркою замість аналізу та планування.</p>
+                    </div>
+                    <!-- Pain Point 3: Lost Money -->
+                    <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-6">
+                            <i class="fa-solid fa-file-invoice-dollar text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Втрата 2-5% обігових коштів</h3>
+                        <p class="mt-2 text-gray-600">Дрібні борги "губляться" в рутині, накопичуються і перетворюються на суттєві збитки для компанії.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section id="solution" class="bg-white py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Готова система за 10 днів, що працює 24/7 у вашій Google-Таблиці</h2>
+                        <p class="mt-6 text-lg text-gray-600">CashFlow-Bridge — це не SaaS, а ваш власний інструмент. Ми впроваджуємо його у ваш Google Workspace, і він назавжди залишається під вашим повним контролем.</p>
+                        <ul class="mt-8 space-y-4">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong class="text-gray-900">Автоматична звірка:</strong> Система щодня порівнює підписані акти у «Вчасно» з випискою з банку.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong class="text-gray-900">Дашборд дебіторки:</strong> Ви бачите реальну картину боргів в одній Google-Таблиці: хто, скільки і як довго винен.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong class="text-gray-900">Нагадування боржникам:</strong> Автоматичні та ввічливі email/telegram сповіщення клієнтам, що прострочили оплату.</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong class="text-gray-900">Повна безпека:</strong> Всі фінансові дані залишаються у вашому Google Workspace та банківському кабінеті.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://placehold.co/600x400/2563eb/ffffff?text=Vchasno+API+%E2%86%92%0A%0AGoogle+Sheets%0A%E2%86%90+Bank+API" alt="Схема інтеграції Вчасно та банку через Google Sheets" class="rounded-xl shadow-lg object-cover max-w-full">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits (Quick Wins) Section -->
+        <section id="benefits" class="py-16 md:py-24">
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Перші результати вже за тиждень: що конкретно ви отримаєте?</h2>
+                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Відчуйте ефект від автоматизації ще до повної здачі проєкту.</p>
+                 <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                     <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <p class="text-blue-600 font-bold">За 3 дні</p>
+                        <p class="mt-2 text-gray-700">Ви вперше побачите повний, автоматично згенерований список «хто підписав акт, але не заплатив».</p>
+                     </div>
+                     <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <p class="text-blue-600 font-bold">За 7 днів</p>
+                        <p class="mt-2 text-gray-700">Ви бачите дашборд дебіторки в реальному часі і можете приймати управлінські рішення.</p>
+                     </div>
+                     <div class="bg-white p-6 rounded-lg border border-gray-200 sm:col-span-2 lg:col-span-1">
+                        <p class="text-blue-600 font-bold">За 10 днів</p>
+                        <p class="mt-2 text-gray-700">Система відправляє перші нагадування, і ви отримуєте оплати від «забудькуватих» клієнтів.</p>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="bg-white py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Як відбувається впровадження автоматизації</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Прозорий процес від першого дзвінка до працюючої системи.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                    <!-- Step 1 -->
+                    <div class="relative p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                        <span class="absolute top-0 left-4 text-8xl font-extrabold text-gray-200/50 -z-0">1</span>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-blue-700">Дзвінок (20 хв)</h3>
+                            <p class="mt-2 text-sm text-gray-600">Аналізуємо процеси, фіксуємо фінальну вартість.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                        <span class="absolute top-0 left-4 text-8xl font-extrabold text-gray-200/50 -z-0">2</span>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-blue-700">Договір та доступ</h3>
+                            <p class="mt-2 text-sm text-gray-600">Ви надаєте технічні API-ключі за нашою інструкцією.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                        <span class="absolute top-0 left-4 text-8xl font-extrabold text-gray-200/50 -z-0">3</span>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-blue-700">Налаштування (5-7 днів)</h3>
+                            <p class="mt-2 text-sm text-gray-600">Розгортаємо систему та адаптуємо логіку звірки.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="relative p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                        <span class="absolute top-0 left-4 text-8xl font-extrabold text-gray-200/50 -z-0">4</span>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-blue-700">Навчання (45 хв)</h3>
+                            <p class="mt-2 text-sm text-gray-600">Демонструємо роботу системи на ваших даних.</p>
+                        </div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="relative p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                        <span class="absolute top-0 left-4 text-8xl font-extrabold text-gray-200/50 -z-0">5</span>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-blue-700">Підтримка</h3>
+                            <p class="mt-2 text-sm text-gray-600">14 днів безкоштовно консультуємо після запуску.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Вартість впровадження vs Втрати від боргів</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Порівняйте разову інвестицію в автоматизацію зі щомісячними втратами, які ви несете зараз.</p>
+                </div>
+                
+                <div class="mt-16 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                    <!-- Option 1: Monthly Losses -->
+                    <div class="p-8 bg-white rounded-xl border border-gray-200 shadow-md h-full">
+                        <h3 class="text-xl font-bold text-gray-800">Щомісячні втрати (зараз)</h3>
+                        <p class="text-3xl font-extrabold text-red-600 mt-4">від 8 000 грн</p>
+                        <p class="text-gray-500">і більше, щомісяця</p>
+                        <ul class="mt-6 space-y-3 text-gray-600">
+                            <li class="flex items-start"><i class="fa-solid fa-calculator text-red-500 mr-3 mt-1"></i> 15 годин бухгалтера (~5000 грн)</li>
+                            <li class="flex items-start"><i class="fa-solid fa-percent text-red-500 mr-3 mt-1"></i> 2% забутих боргів (~3000+ грн)</li>
+                            <li class="flex items-start"><i class="fa-solid fa-triangle-exclamation text-red-500 mr-3 mt-1"></i> Ризик касових розривів</li>
+                        </ul>
+                    </div>
+                    <!-- Option 2: Our Solution (Highlighted) -->
+                    <div class="p-8 bg-blue-600 text-white rounded-xl border-2 border-blue-700 shadow-2xl transform lg:scale-105 h-full">
+                        <p class="text-sm font-bold text-blue-200 uppercase">ІНВЕСТИЦІЯ В КОНТРОЛЬ</p>
+                        <h3 class="text-2xl font-bold mt-2">Система CashFlow-Bridge</h3>
+                        <p class="text-3xl font-extrabold mt-4">35 000 - 55 000 грн</p>
+                        <p class="text-blue-200">разовий платіж</p>
+                        <ul class="mt-6 space-y-3">
+                            <li class="flex items-start"><i class="fa-solid fa-check text-white mr-3 mt-1"></i> Окупається за 3-5 місяців</li>
+                            <li class="flex items-start"><i class="fa-solid fa-check text-white mr-3 mt-1"></i> Зменшує дебіторку на 15-20%</li>
+                            <li class="flex items-start"><i class="fa-solid fa-check text-white mr-3 mt-1"></i> Повертає 90% "забутих" боргів</li>
+                        </ul>
+                    </div>
+                    <!-- Option 3: New Employee -->
+                    <div class="p-8 bg-white rounded-xl border border-gray-200 shadow-md h-full">
+                        <h3 class="text-xl font-bold text-gray-800">Фінансовий менеджер</h3>
+                        <p class="text-3xl font-extrabold text-gray-900 mt-4">від 25 000 грн</p>
+                        <p class="text-gray-500">щомісяця + податки</p>
+                        <ul class="mt-6 space-y-3 text-gray-600">
+                           <li class="flex items-start"><i class="fa-solid fa-magnifying-glass text-gray-500 mr-3 mt-1"></i> Довгий пошук та адаптація</li>
+                           <li class="flex items-start"><i class="fa-solid fa-user-plus text-gray-500 mr-3 mt-1"></i> Постійні витрати на ФОП</li>
+                           <li class="flex items-start"><i class="fa-solid fa-person-walking-arrow-right text-gray-500 mr-3 mt-1"></i> Ризик звільнення</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Form Section -->
+        <section id="form-section" class="py-16 md:py-24 bg-gray-900 text-white">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold">Скільки грошей ваших клієнтів «зависло» на рахунках прямо зараз?</h2>
+                        <p class="mt-4 text-lg text-gray-300">
+                           Залиште заявку на 15-хвилинну безкоштовну консультацію. Ми розрахуємо точну вартість впровадження для вашої компанії та покажемо, як ви можете повернути перші гроші в обіг протягом наступних 10 днів.
+                        </p>
+                        <p class="mt-6 text-gray-400 text-sm">* Це безкоштовно та ні до чого вас не зобов'язує.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg text-gray-800">
+                        <h3 class="text-2xl font-bold mb-6">Заявка на демонстрацію</h3>
+                        <form id="leadForm" novalidate>
+                            <input type="hidden" name="pageid" id="pageidInput">
+                            <input type="hidden" name="source_info" value="avtomatizatsiya_debitorky_vchasno_bank">
+
+                            <!-- Contact Details -->
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Ім'я*</label>
+                                    <input type="text" id="name" name="name" required placeholder="Ваше ім'я" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Телефон*</label>
+                                    <input type="tel" id="phone" name="phone" required placeholder="+38 (0XX) XXX-XX-XX" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email*</label>
+                                    <input type="email" id="email" name="email" required placeholder="example@company.com" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition">
+                                </div>
+                                <input type="hidden" name="telegram" value="">
+                            </div>
+
+                            <!-- Company Details -->
+                            <div class="space-y-4 mt-6 pt-6 border-t border-gray-200">
+                                <div>
+                                    <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Назва компанії</label>
+                                    <input type="text" id="company" name="company" placeholder="ТОВ 'Ваш Бізнес'" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition">
+                                </div>
+                                 <input type="hidden" name="website" value="">
+                            </div>
+                            
+                            <!-- Project Details -->
+                            <div class="space-y-4 mt-6 pt-6 border-t border-gray-200">
+                                 <div>
+                                    <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Кількість актів на місяць*</label>
+                                    <select id="service" name="service" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition bg-white">
+                                        <option value="">Оберіть кількість</option>
+                                        <option value="до 50">до 50</option>
+                                        <option value="50-100">50-100</option>
+                                        <option value="100-250">100-250</option>
+                                        <option value="250+">250+</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="budget" value="auto">
+                                <input type="hidden" name="task" value="auto-request">
+                            </div>
+
+                            <div class="mt-6">
+                                <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button type="submit" class="w-full bg-blue-600 text-white font-bold text-lg py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 disabled:bg-blue-300">
+                                    Отримати розрахунок вартості
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-4 text-center">Натискаючи кнопку, ви погоджуєтеся з нашою <a href="pp.html" class="underline hover:text-blue-600">Політикою Конфіденційності</a>.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-16 md:py-24">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center">Часті питання</h2>
+                <div class="mt-12 space-y-4">
+                    <details class="group bg-white p-6 rounded-lg border border-gray-200">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer text-gray-900">
+                            Наскільки це безпечно? Ви отримаєте доступ до моїх фінансів?
+                            <i class="fa-solid fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-gray-600 mt-4">Це абсолютно безпечно. Ви самостійно генеруєте API-ключі з обмеженими правами (тільки на читання виписок) у своєму банківському кабінеті за нашою інструкцією. Ми не отримуємо логінів/паролів і не можемо проводити жодних операцій. Всі дані обробляються та зберігаються виключно у вашому Google Workspace.</p>
+                    </details>
+                    <details class="group bg-white p-6 rounded-lg border border-gray-200">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer text-gray-900">
+                            Що буде, якщо банк або «Вчасно» змінять своє API?
+                            <i class="fa-solid fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-gray-600 mt-4">Зміни в API трапляються, хоч і нечасто. 14 днів після запуску ми виправляємо будь-які проблеми безкоштовно. Надалі ми пропонуємо опційну річну підписку на технічну підтримку, яка покриває адаптацію системи під такі зміни.</p>
+                    </details>
+                    <details class="group bg-white p-6 rounded-lg border border-gray-200">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer text-gray-900">
+                            Система сама стягує борги з клієнтів?
+                            <i class="fa-solid fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-gray-600 mt-4">Ні, система є інструментом моніторингу та сповіщення. Вона ідентифікує боржників і може автоматично надсилати їм ввічливі нагадування. Це не колекторська агенція, і ми не гарантуємо 100% оплату від ваших контрагентів, але значно підвищуємо платіжну дисципліну.</p>
+                    </details>
+                    <details class="group bg-white p-6 rounded-lg border border-gray-200">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer text-gray-900">
+                            Чи підійде система, якщо ми отримуємо один платіж за кілька актів?
+                            <i class="fa-solid fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-gray-600 mt-4">Так. Базова версія системи розрахована на логіку "один акт - одна оплата". Однак ми можемо адаптувати логіку звірки під складніші сценарії, наприклад, коли один платіж закриває кілька документів. Це обговорюється на першому дзвінку і впливає на фінальну вартість.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center sm:flex sm:justify-between">
+            <p class="text-sm">&copy; 2024 VCHASNO. Всі права захищено.</p>
+            <div class="mt-4 sm:mt-0 space-x-6 text-sm">
+                <a href="pp.html" class="hover:text-white transition-colors">Політика Конфіденційності</a>
+                <a href="rules.html" class="hover:text-white transition-colors">Умови Надання Послуг</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toastify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <!-- Custom JS for Form Handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate and set unique Page ID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                try {
+                    pageidInput.value = crypto.randomUUID();
+                } catch (e) {
+                    pageidInput.value = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                        (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & 15) >> c / 4).toString(16)
+                    );
+                }
+            }
+            
+            // Phone mask logic
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.startsWith('380') && value.length > 2) {
+                        value = value.substring(2);
+                    }
+                    if (value.length > 9) {
+                        value = value.substring(0, 9);
+                    }
+                    
+                    let formattedValue = '+38 (0';
+                    if (value.length > 0) {
+                        formattedValue += value.substring(0, 2);
+                    }
+                    if (value.length > 2) {
+                        formattedValue += ') ' + value.substring(2, 5);
+                    }
+                    if (value.length > 5) {
+                        formattedValue += '-' + value.substring(5, 7);
+                    }
+                    if (value.length > 7) {
+                        formattedValue += '-' + value.substring(7, 9);
+                    }
+                    
+                    e.target.value = formattedValue.substring(0, 19);
+                });
+            }
+
+            // Form submission logic
+            const form = document.getElementById('leadForm');
+            if(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const captchaResponse = grecaptcha.getResponse();
+                    if (!captchaResponse) {
+                        showToast('error', 'Будь ласка, пройдіть капчу');
+                        return;
+                    }
+
+                    const btn = this.querySelector('button[type="submit"]');
+                    const originalText = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> ВІДПРАВЛЯЄМО...';
+
+                    const formData = new FormData(this);
+                    
+                    // Clean phone number before creating params
+                    const rawPhone = (formData.get('phone') || '').replace(/\D/g, '');
+                    if (rawPhone.length < 9) {
+                         showToast('error', 'Будь ласка, введіть коректний номер телефону.');
+                         btn.disabled = false;
+                         btn.innerHTML = originalText;
+                         return;
+                    }
+                    formData.set('phone', '380' + rawPhone.slice(-9)); // Ensure 380xxxxxxxxx format
+                    
+                    const params = new URLSearchParams(formData);
+
+                    if (!params.has('g-recaptcha-response')) {
+                        params.append('g-recaptcha-response', captchaResponse);
+                    }
+
+                    const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                    fetch(`${scriptURL}?${params.toString()}`, {
+                        method: 'GET',
+                        mode: 'cors'
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                           throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data && (data.status === 200 || (data.result && data.result.includes('Success')))) {
+                            showToast('success', 'Дякуємо! Заявка отримана.');
+                            if (typeof window.dataLayer !== 'undefined') {
+                                window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                            }
+                            this.reset();
+                            grecaptcha.reset(); 
+                        } else {
+                            showToast('error', 'Помилка: ' + (data.result || 'Невідома помилка'));
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Fetch error:', err);
+                        showToast('error', 'Сталася помилка при відправці. Спробуйте пізніше.');
+                    })
+                    .finally(() => {
+                        btn.disabled = false;
+                        btn.innerHTML = originalText;
+                    });
+                });
+            }
+        });
+
+        function showToast(type, message) {
+            Toastify({
+                text: message,
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: type === 'success' ? "linear-gradient(to right, #00b09b, #96c93d)" : "linear-gradient(to right, #ff5f6d, #ffc371)",
+                }
+            }).showToast();
+        }
+    </script>
+</body>
+</html>

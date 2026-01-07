@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автоматичний розрахунок бонусів, KPI та ЗП у Google Sheets | VCHASNO</title>
+    <meta name="description" content="🔥 Зупиніть плинність кадрів! Впровадимо прозову систему автоматичного розрахунку KPI, бонусів та зарплати в Google Sheets. Ваша команда бачить свій заробіток в реальному часі.">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
+        .step-number { position: absolute; top: -10px; left: -10px; font-size: 5rem; font-weight: 800; color: #2563eb; opacity: 0.05; z-index: 0; pointer-events: none; }
+        .form-input:invalid { border-color: #ef4444; }
+        .form-input:focus { border-color: #2563eb; outline: none; ring: 2px; ring-color: #dbeafe; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+    </style>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "VCHASNO",
+      "description": "Автоматизація розрахунку бонусів та мотивації через Google Sheets та CRM API.",
+      "areaServed": "UA",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "По запиту",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Header -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-slate-200">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-extrabold text-slate-900 tracking-tighter">VCHASNO</span>
+                <span class="text-[10px] uppercase tracking-widest text-blue-600 font-bold">Вчасно розпочати — вчасно масштабувати</span>
+            </div>
+            <a href="#contact" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold transition-all transform hover:scale-105">
+                Безкоштовний аудит
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 hero-gradient text-white overflow-hidden">
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2 z-10">
+                <div class="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 text-blue-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+                    <i class="fas fa-users-gear"></i> Sales-Incentive 2024
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                    Ваші найкращі співробітники йдуть через <span class="text-blue-400">непрозорі бонуси?</span>
+                </h1>
+                <p class="text-xl text-slate-300 mb-8 max-w-xl leading-relaxed">
+                    Впровадимо автоматичну систему, де кожен у команді бачить свій заробіток в реальному часі. Перетворіть розрахунок зарплати з конфлікту на мотивацію.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="bg-blue-500 hover:bg-blue-600 text-white text-center px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-blue-500/20 transition-all">
+                        Пройти аудит мотивації
+                    </a>
+                    <div class="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-xl border border-white/10">
+                        <i class="fas fa-chart-line text-blue-400 text-2xl"></i>
+                        <span class="text-xs text-slate-400">Прозорі KPI <br>в реальному часі</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative">
+                <div class="relative z-10 bg-slate-800 p-2 rounded-2xl shadow-2xl border border-white/10">
+                    <img src="https://placehold.co/600x400/1e293b/ffffff?text=Incentive+Dashboard+Preview" alt="Incentive Dashboard" class="rounded-xl">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-blue-600 p-6 rounded-2xl shadow-xl hidden md:block">
+                    <p class="text-xs uppercase tracking-widest font-bold mb-1">Мій бонус сьогодні</p>
+                    <p class="text-2xl font-black">+12,450 грн</p>
+                    <p class="text-[10px] opacity-80">Оновлено щойно з CRM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Що ви втрачаєте, рахуючи зарплату вручну?</h2>
+                <p class="text-slate-600 text-lg">Ручний розрахунок — це не просто рутина, це ризик втрати ключових людей.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 card-hover">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-user-slash text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-4">Втрата людей</h4>
+                    <p class="text-slate-600">Ключові спеціалісти йдуть до конкурентів, бо втомились від помилок та непрозорості в нарахуваннях.</p>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 card-hover">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-money-bill-transfer text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-4">Фінансові помилки</h4>
+                    <p class="text-slate-600">Ви переплачуєте через помилки або недоплачуєте, що вбиває бажання команди продавати більше.</p>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 card-hover">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-hourglass-half text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-4">Марнотратство часу</h4>
+                    <p class="text-slate-600">Витрачаєте 2 дні щомісяця на зведення таблиць, замість того, щоб займатися стратегією бізнесу.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-24 bg-slate-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Як працює ваша прозора система мотивації</h2>
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="relative p-8 bg-slate-800 rounded-3xl border border-slate-700">
+                    <div class="text-blue-500 text-5xl font-black mb-6">01</div>
+                    <h4 class="text-xl font-bold mb-4 uppercase">Збір даних</h4>
+                    <p class="text-slate-400">Система автоматично забирає дані про продажі, оплати та KPI з вашої CRM або банківської виписки.</p>
+                </div>
+                <div class="relative p-8 bg-slate-800 rounded-3xl border border-slate-700">
+                    <div class="text-blue-500 text-5xl font-black mb-6">02</div>
+                    <h4 class="text-xl font-bold mb-4 uppercase">Розрахунок</h4>
+                    <p class="text-slate-400">Скрипт миттєво обраховує зарплату, % та бонуси за вашою унікальною формулою без помилок.</p>
+                </div>
+                <div class="relative p-8 bg-slate-800 rounded-3xl border border-slate-100/10">
+                    <div class="text-blue-500 text-5xl font-black mb-6">03</div>
+                    <h4 class="text-xl font-bold mb-4 uppercase">Візуалізація</h4>
+                    <p class="text-slate-400">Кожен співробітник бачить свій актуальний заробіток на персональному дашборді 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Wins -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8">Що зміниться у вашому бізнесі вже за 10 днів?</h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-lg">Швидкість розрахунку</h5>
+                                <p class="text-slate-600">Ви проведете наступний розрахунок зарплати за 15 хвилин замість 2 днів виснажливої роботи.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-lg">Довіра в команді</h5>
+                                <p class="text-slate-600">Ваша команда отримає повну прозорість нарахувань, що одразу підвищить моральний дух та лояльність.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-lg">Нуль конфліктів</h5>
+                                <p class="text-slate-600">Ви назавжди позбудетеся суперечок на тему «а чому мені стільки нарахували?», бо цифри говорять самі за себе.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 bg-slate-900 p-8 rounded-3xl shadow-2xl">
+                    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 mb-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-slate-400 uppercase">Мій KPI: Травень 2024</span>
+                            <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-1 rounded">Виконано на 92%</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-300">Обсяг продажів</span>
+                                <span class="text-white">450,000 грн</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-300">Бонус (3%)</span>
+                                <span class="text-emerald-400 font-bold">13,500 грн</span>
+                            </div>
+                            <div class="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-500 w-[92%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-600/10 border border-blue-500/20 rounded-xl p-4 flex items-center gap-4">
+                        <i class="fas fa-robot text-2xl text-blue-400"></i>
+                        <p class="text-sm text-slate-300 italic">"Система автоматично оновила дані з KeyCRM. Бонуси перераховано."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-24 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Етапи впровадження</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="relative p-8 bg-white rounded-2xl border border-slate-200 z-10 card-hover">
+                    <span class="step-number">01</span>
+                    <h4 class="font-bold text-xl mb-3 relative z-10">Аудит</h4>
+                    <p class="text-slate-600 text-sm relative z-10">Вивчаємо вашу поточну логіку нарахування зарплат, бонусів та KPI.</p>
+                </div>
+                <div class="relative p-8 bg-white rounded-2xl border border-slate-200 z-10 card-hover">
+                    <span class="step-number">02</span>
+                    <h4 class="font-bold text-xl mb-3 relative z-10">Доступи</h4>
+                    <p class="text-slate-600 text-sm relative z-10">Підписуємо договір та отримуємо API-ключі до джерел даних.</p>
+                </div>
+                <div class="relative p-8 bg-white rounded-2xl border border-slate-200 z-10 card-hover">
+                    <span class="step-number">03</span>
+                    <h4 class="font-bold text-xl mb-3 relative z-10">Розробка</h4>
+                    <p class="text-slate-600 text-sm relative z-10">Створюємо архітектуру та логіку розрахунків у вашому Google-акаунті.</p>
+                </div>
+                <div class="relative p-8 bg-white rounded-2xl border border-slate-200 z-10 card-hover">
+                    <span class="step-number">04</span>
+                    <h4 class="font-bold text-xl mb-3 relative z-10">Запуск</h4>
+                    <p class="text-slate-600 text-sm relative z-10">Проводимо тестовий розрахунок та передаємо інструкції команді.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-slate-900 rounded-3xl shadow-2xl overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-2/3 p-8 md:p-16 text-white">
+                        <h2 class="text-3xl font-bold mb-6">Скільки коштує довіра вашої команди?</h2>
+                        <p class="text-slate-400 mb-10 text-lg">
+                            Це разова інвестиція, яка дешевша за вартість втрати одного ключового співробітника. Вона окупається за рахунок росту продуктивності.
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-10">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-blue-400"></i>
+                                <span class="text-sm">До 10 співробітників у базі</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-blue-400"></i>
+                                <span class="text-sm">Оплата 50/50 по договору</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-blue-400"></i>
+                                <span class="text-sm">21 день техпідтримки</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-blue-400"></i>
+                                <span class="text-sm">Відео-інструкції включено</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3 bg-blue-600 p-12 text-white flex flex-col justify-center items-center text-center">
+                        <span class="text-blue-100 uppercase tracking-widest text-xs mb-4">Вартість впровадження</span>
+                        <div class="text-sm text-blue-100 mb-1">від</div>
+                        <div class="text-5xl font-extrabold mb-2">40 000</div>
+                        <div class="text-xl font-bold mb-10">грн</div>
+                        <a href="#contact" class="w-full bg-white text-blue-600 font-bold py-4 rounded-xl transition-all shadow-lg hover:bg-blue-50">
+                            Розрахувати ціну
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Form Section -->
+    <section id="contact" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Замовте безкоштовний аудит мотивації</h2>
+                    <p class="text-slate-600 text-lg">Покажемо, як перетворити розрахунок зарплати на потужний інструмент росту вашого бізнесу.</p>
+                </div>
+
+                <form id="leadForm" class="bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-sm">
+                    <input type="hidden" name="pageid" id="pageidInput">
+                    <input type="hidden" name="source_info" value="avtomatizatsiya_motivatsiyi">
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                        <!-- Contacts -->
+                        <div class="space-y-5">
+                            <p class="text-xs font-bold uppercase text-blue-600 tracking-widest border-b border-blue-100 pb-2">1. Контакти</p>
+                            <input type="text" name="name" placeholder="Ваше ім'я *" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="email" name="email" placeholder="Email *" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="tel" name="phone" id="phoneInput" placeholder="380XXXXXXXXX *" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="text" name="telegram" placeholder="Telegram / Viber" class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                        </div>
+
+                        <!-- Company -->
+                        <div class="space-y-5">
+                            <p class="text-xs font-bold uppercase text-blue-600 tracking-widest border-b border-blue-100 pb-2">2. Компанія</p>
+                            <input type="text" name="company" placeholder="Назва компанії" class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="url" name="website" placeholder="Сайт компанії (URL)" class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <select name="service" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                                <option value="">Кількість співробітників *</option>
+                                <option value="10-20">10 - 20 осіб</option>
+                                <option value="20-50">20 - 50 осіб</option>
+                                <option value="50+">Понад 50 осіб</option>
+                            </select>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="space-y-5">
+                            <p class="text-xs font-bold uppercase text-blue-600 tracking-widest border-b border-blue-100 pb-2">3. Деталі проекту</p>
+                            <select name="budget" class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                                <option value="">Очікуваний бюджет</option>
+                                <option value="40-55k">40,000 - 55,000 грн</option>
+                                <option value="55-70k">55,000 - 70,000 грн</option>
+                                <option value="70k+">Понад 70,000 грн</option>
+                            </select>
+                            <textarea name="task" placeholder="Яку CRM використовуєте? Яка логіка бонусів зараз?" class="w-full p-3.5 rounded-xl border border-slate-300 form-input h-24"></textarea>
+                            
+                            <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-xl transition-all transform active:scale-95">
+                                НАДІСЛАТИ ЗАЯВКУ
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl font-bold text-center mb-12">Часті питання</h2>
+            <div class="space-y-4">
+                <details class="group bg-slate-50 p-6 rounded-2xl border border-slate-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        А якщо у нас дуже складна система бонусів?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="mt-4 text-slate-600 text-sm leading-relaxed">Чудово! Наша система створена саме для цього. Ми можемо автоматизувати будь-яку логіку: прогресивний відсоток, бонуси за виконання плану, командні бонуси, штрафи та багато іншого.</p>
+                </details>
+                <details class="group bg-slate-50 p-6 rounded-2xl border border-slate-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        Чи бачать співробітники зарплату один одного?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="mt-4 text-slate-600 text-sm leading-relaxed">Ні, в жодному разі. Кожен співробітник отримує доступ до свого персонального дашборду і бачить виключно свої дані. Керівник бачить зведену інформацію по всій команді.</p>
+                </details>
+                <details class="group bg-slate-50 p-6 rounded-2xl border border-slate-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        Наскільки це безпечно?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="mt-4 text-slate-600 text-sm leading-relaxed">Повністю безпечно. Вся система працює у вашому захищеному корпоративному Google Workspace. Ми підписуємо NDA і не маємо доступу до ваших фінансових даних після завершення налаштування.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO Text Block -->
+    <section class="py-12 bg-white border-t border-slate-100">
+        <div class="container mx-auto px-4 text-center max-w-4xl">
+            <p class="text-slate-400 text-[10px] leading-relaxed uppercase tracking-wider">
+                Впровадьте ефективну та прозору систему мотивації персоналу з нашим рішенням для автоматизації розрахунку зарплати в Google Sheets. Ми допоможемо створити інтерактивну таблицю KPI для менеджерів з продажу, налаштувати скрипт для нарахування бонусів та вести точний облік виробітку співробітників. Це ідеальний інструмент для ФОП та компаній, що прагнуть утримати ключових спеціалістів та підвищити їхню продуктивність.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex flex-col items-center md:items-start">
+                    <span class="text-3xl font-extrabold tracking-tighter">VCHASNO</span>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Вчасно розпочати — вчасно масштабувати</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-400">
+                    <a href="pp.html" class="hover:text-white transition-colors">Політика Конфіденційності</a>
+                    <a href="rules.html" class="hover:text-white transition-colors">Умови Надання Послуг</a>
+                </div>
+                <div class="text-slate-500 text-sm">
+                    &copy; 2024 VCHASNO. Всі права захищені.
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-slate-800 text-center">
+                <p class="text-slate-500 text-xs max-w-2xl mx-auto">
+                    Поки ви вручну зводите звіти за минулий місяць, ваш найкращий менеджер оновлює резюме. Не чекайте, поки проблема стане кризою. Залиште заявку на 15-хвилинну консультацію.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Generate Unique Page ID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                pageidInput.value = ([1e7]+-1e3+-4e4+-8e2+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            // 2. Phone Mask Logic
+            const phoneInput = document.getElementById('phoneInput');
+            phoneInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').substring(0, 12);
+            });
+
+            // 3. Form Submission
+            const form = document.getElementById('leadForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Captcha validation
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Будь ласка, пройдіть капчу');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+                const formData = new FormData(this);
+                
+                // Clean phone number for API
+                const rawPhone = formData.get('phone').replace(/\D/g, '');
+                const params = new URLSearchParams(formData);
+                params.set('phone', rawPhone);
+                
+                if (!params.has('g-recaptcha-response')) {
+                    params.append('g-recaptcha-response', captchaResponse);
+                }
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || (data.result && data.result.includes('Success'))) {
+                        showToast('success', 'Дякуємо! Заявка отримана. Ми зв’яжемося з вами найближчим часом.');
+                        window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                        form.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка: ' + (data.result || 'Невідома помилка'));
+                    }
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    showToast('error', 'Сталася помилка при відправці. Спробуйте пізніше.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+        });
+
+        function showToast(type, message) {
+            Toastify({
+                text: message,
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: type === 'success' ? "#10b981" : "#ef4444",
+                stopOnFocus: true
+            }).showToast();
+        }
+    </script>
+</body>
+</html>

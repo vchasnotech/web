@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Block technical / service paths (if any appear)
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /logs/
+
+# Allow important resources
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Sitemap
+Sitemap: https://vchasno.tech/sitemap.xml

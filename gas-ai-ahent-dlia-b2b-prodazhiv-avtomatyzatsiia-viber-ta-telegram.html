@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-агент для B2B продажів: автоматизація Viber та Telegram | VCHASNO</title>
+    <meta name="description" content="Збільште продажі на 30% за допомогою AI-агента. Автоматична обробка запитів 24/7, кваліфікація лідів та інтеграція з CRM за 14 днів.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- External Assets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            accent: '#3b82f6',
+                            neon: '#00f2ff',
+                            surface: '#1e293b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "VCHASNO",
+      "description": "Збільште продажі на 30% за допомогою AI-агента. Автоматична обробка запитів 24/7, кваліфікація лідів та інтеграція з CRM за 14 днів.",
+      "areaServed": "UA",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "По запиту"
+      }
+    }
+    </script>
+
+    <style>
+        .neon-glow:hover {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        input:invalid {
+            border-color: #ef4444;
+        }
+        .step-number {
+            -webkit-text-stroke: 1px rgba(59, 130, 246, 0.3);
+            color: transparent;
+            font-size: 8rem;
+            line-height: 1;
+        }
+        .bg-gradient-dark {
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-200 font-sans leading-relaxed">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-slate-800">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-white tracking-tighter">VCHASNO</span>
+                <span class="text-[10px] text-brand-accent uppercase tracking-widest font-bold">Вчасно розпочати — вчасно масштабувати</span>
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="#problems" class="hover:text-brand-accent transition">Проблеми</a>
+                <a href="#solution" class="hover:text-brand-accent transition">Рішення</a>
+                <a href="#process" class="hover:text-brand-accent transition">Процес</a>
+                <a href="#pricing" class="hover:text-brand-accent transition">Тарифи</a>
+            </nav>
+            <a href="#lead-form" class="bg-brand-accent hover:bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-bold transition neon-glow">
+                Замовити Демо
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gradient-dark">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl">
+                <div class="inline-block bg-blue-500/10 border border-blue-500/20 text-brand-accent px-4 py-1 rounded-full text-xs font-bold mb-6">
+                    <i class="fas fa-robot mr-2"></i> НОВИЙ СТАНДАРТ B2B ПРОДАЖІВ
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+                    Ваш відділ продажу працює <span class="text-brand-accent">24/7 без зарплати</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl leading-relaxed">
+                    AI-агент на базі GPT-4 відповідає за 30 секунд, закриває 80% рутинних питань та передає менеджеру тільки готові до оплати угоди.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#lead-form" class="bg-brand-accent text-white px-8 py-4 rounded-lg font-bold text-center hover:scale-105 transition-transform text-lg">
+                        Спробувати AI-агента в дії
+                    </a>
+                    <a href="#process" class="border border-slate-700 hover:bg-slate-800 text-white px-8 py-4 rounded-lg font-bold text-center transition">
+                        Як це працює?
+                    </a>
+                </div>
+                <div class="mt-12 flex items-center gap-6 text-sm text-slate-500">
+                    <span class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Інтеграція 14 днів</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> GPT-4o Технологія</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> CRM сумісність</span>
+                </div>
+            </div>
+        </div>
+        <!-- Abstract Background Shape -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-brand-accent/5 blur-[120px] rounded-full -mr-20"></div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problems" class="py-20 bg-brand-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Скільки грошей ви втрачаєте, поки менеджер спить?</h2>
+                <div class="w-20 h-1 bg-brand-accent mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-brand-surface border border-slate-800 hover:border-brand-accent/50 transition">
+                    <div class="text-brand-accent text-3xl mb-6"><i class="fas fa-clock-rotate-left"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Довга відповідь</h3>
+                    <p class="text-slate-400">70% часу менеджери витрачають на однотипні питання, втрачаючи "гарячих" клієнтів через затримку понад 15 хвилин.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-brand-surface border border-slate-800 hover:border-brand-accent/50 transition">
+                    <div class="text-brand-accent text-3xl mb-6"><i class="fas fa-moon"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Пропущені нічні ліди</h3>
+                    <p class="text-slate-400">Клієнти пишуть у Viber/Telegram увечері та у вихідні. Без відповіді вони йдуть до конкурентів, що працюють швидше.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-brand-surface border border-slate-800 hover:border-brand-accent/50 transition">
+                    <div class="text-brand-accent text-3xl mb-6"><i class="fas fa-users-slash"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Дефіцит кадрів</h3>
+                    <p class="text-slate-400">Складно знайти та навчити нового менеджера. AI не звільняється, не хворіє та працює стабільно навіть під час блекаутів.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="py-20 bg-slate-900/50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto overflow-hidden rounded-3xl border border-slate-800 shadow-2xl">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800/50 text-white">
+                            <th class="p-6 font-bold border-b border-slate-700">Параметр</th>
+                            <th class="p-6 font-bold border-b border-slate-700 text-red-400">Менеджер (Людина)</th>
+                            <th class="p-6 font-bold border-b border-slate-700 text-brand-accent bg-blue-500/5">AI-Агент VCHASNO</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-300">
+                        <tr>
+                            <td class="p-6 border-b border-slate-800 font-medium">Швидкість відповіді</td>
+                            <td class="p-6 border-b border-slate-800">10-60 хвилин</td>
+                            <td class="p-6 border-b border-slate-800 text-white bg-blue-500/5 font-bold">до 30 секунд</td>
+                        </tr>
+                        <tr>
+                            <td class="p-6 border-b border-slate-800 font-medium">Графік роботи</td>
+                            <td class="p-6 border-b border-slate-800">Пн-Пт, 09:00 - 18:00</td>
+                            <td class="p-6 border-b border-slate-800 text-white bg-blue-500/5 font-bold">24/7/365</td>
+                        </tr>
+                        <tr>
+                            <td class="p-6 border-b border-slate-800 font-medium">Кількість діалогів одночасно</td>
+                            <td class="p-6 border-b border-slate-800">1-2</td>
+                            <td class="p-6 border-b border-slate-800 text-white bg-blue-500/5 font-bold">Необмежено</td>
+                        </tr>
+                        <tr>
+                            <td class="p-6 border-b border-slate-800 font-medium">Вартість на місяць</td>
+                            <td class="p-6 border-b border-slate-800">25,000+ грн (ЗП + податки)</td>
+                            <td class="p-6 border-b border-slate-800 text-white bg-blue-500/5 font-bold">від 3,000 грн</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution / Features -->
+    <section id="solution" class="py-20 bg-brand-dark">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-8 leading-tight">Ваш новий ідеальний співробітник</h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="bg-brand-accent/20 p-2 rounded-lg text-brand-accent mt-1">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">Глибоке знання продукту</h4>
+                                <p class="text-slate-400">Навчаємо AI на ваших прайсах, інструкціях та історії переписок. Він знає про ваш бізнес все.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-brand-accent/20 p-2 rounded-lg text-brand-accent mt-1">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">Кваліфікація за BANT</h4>
+                                <p class="text-slate-400">Бот виявляє бюджет, терміни та повноваження клієнта перед передачею менеджеру.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-brand-accent/20 p-2 rounded-lg text-brand-accent mt-1">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">Повна інтеграція</h4>
+                                <p class="text-slate-400">Створення лідів у Bitrix24, KeyCRM або сповіщення прямо у ваш робочий чат.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/2 relative">
+                    <div class="bg-brand-surface border border-slate-700 p-6 rounded-3xl shadow-2xl relative z-10">
+                        <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center font-bold text-white">AI</div>
+                            <div>
+                                <p class="font-bold text-white">VCHASNO AI Agent</p>
+                                <p class="text-xs text-green-500">В мережі</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 text-sm">
+                            <div class="bg-slate-800 p-4 rounded-2xl rounded-tl-none max-w-[80%]">
+                                <p>Доброго дня! Скільки коштує оренда генератора 100кВт на тиждень?</p>
+                            </div>
+                            <div class="bg-brand-accent/10 border border-brand-accent/20 p-4 rounded-2xl rounded-tr-none max-w-[80%] ml-auto text-white">
+                                <p>Вітаю! Вартість оренди 100кВт генератора складає 12,500 грн/тиждень. У нас є вільні одиниці. Бажаєте розрахувати вартість з доставкою на ваш об'єкт?</p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-2xl rounded-tl-none max-w-[80%]">
+                                <p>Так, об'єкт у Броварах. І яка форма оплати?</p>
+                            </div>
+                            <div class="bg-brand-accent/10 border border-brand-accent/20 p-4 rounded-2xl rounded-tr-none max-w-[80%] ml-auto text-white">
+                                <p>Доставка в Бровари — 1,200 грн. Працюємо з ПДВ та без. Можу надіслати договір для ознайомлення?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Decorative element -->
+                    <div class="absolute -bottom-6 -right-6 w-full h-full border-2 border-brand-accent/20 rounded-3xl -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-slate-900/30">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">5 кроків до запуску за 14 днів</h2>
+                <p class="text-slate-400">Проста та прозора схема впровадження без зупинки ваших процесів</p>
+            </div>
+            <div class="grid md:grid-cols-5 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="relative group">
+                    <span class="step-number absolute -top-10 -left-4 font-black opacity-10 group-hover:opacity-20 transition z-0">1</span>
+                    <div class="relative z-10">
+                        <h4 class="text-xl font-bold text-brand-accent mb-3">Аудит</h4>
+                        <p class="text-sm text-slate-400">Аналіз вашої переписки та виявлення 80% типових запитань.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative group">
+                    <span class="step-number absolute -top-10 -left-4 font-black opacity-10 group-hover:opacity-20 transition z-0">2</span>
+                    <div class="relative z-10">
+                        <h4 class="text-xl font-bold text-brand-accent mb-3">База знань</h4>
+                        <p class="text-sm text-slate-400">Створення промптів та завантаження прайсів у пам'ять AI.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative group">
+                    <span class="step-number absolute -top-10 -left-4 font-black opacity-10 group-hover:opacity-20 transition z-0">3</span>
+                    <div class="relative z-10">
+                        <h4 class="text-xl font-bold text-brand-accent mb-3">Інтеграція</h4>
+                        <p class="text-sm text-slate-400">Підключення до Viber, Telegram та вашої CRM-системи.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="relative group">
+                    <span class="step-number absolute -top-10 -left-4 font-black opacity-10 group-hover:opacity-20 transition z-0">4</span>
+                    <div class="relative z-10">
+                        <h4 class="text-xl font-bold text-brand-accent mb-3">Тести</h4>
+                        <p class="text-sm text-slate-400">Перевірка відповідей на реальних діалогах та коригування.</p>
+                    </div>
+                </div>
+                <!-- Step 5 -->
+                <div class="relative group">
+                    <span class="step-number absolute -top-10 -left-4 font-black opacity-10 group-hover:opacity-20 transition z-0">5</span>
+                    <div class="relative z-10">
+                        <h4 class="text-xl font-bold text-brand-accent mb-3">Запуск</h4>
+                        <h4 class="text-xl font-bold text-brand-accent mb-3">Запуск</h4>
+                        <p class="text-sm text-slate-400">Навчання персоналу роботі з автоматизованими лідами.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-brand-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Інвестиція в стабільний ріст</h2>
+                <p class="text-slate-400">Вартість впровадження окупається за 1-2 місяці роботи</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="p-10 rounded-3xl bg-brand-surface border border-slate-800 relative">
+                    <h3 class="text-2xl font-bold mb-4">Стандарт</h3>
+                    <div class="text-4xl font-black text-white mb-6">35,000 <span class="text-lg font-normal text-slate-500">UAH</span></div>
+                    <ul class="space-y-4 mb-10 text-slate-400">
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> База знань (до 50 сторінок)</li>
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> 1 Месенджер (Telegram/Viber)</li>
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> Кваліфікація лідів (BANT)</li>
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> Інтеграція з CRM</li>
+                    </ul>
+                    <a href="#lead-form" class="block w-full text-center py-4 border border-brand-accent text-brand-accent rounded-xl font-bold hover:bg-brand-accent hover:text-white transition">Обрати пакет</a>
+                </div>
+                <div class="p-10 rounded-3xl bg-slate-800 border-2 border-brand-accent relative overflow-hidden">
+                    <div class="absolute top-4 right-[-35px] bg-brand-accent text-white px-10 py-1 rotate-45 text-[10px] font-bold uppercase">Popular</div>
+                    <h3 class="text-2xl font-bold mb-4">Pro & Custom</h3>
+                    <div class="text-4xl font-black text-white mb-2">від 55,000 <span class="text-lg font-normal text-slate-500">UAH</span></div>
+                    <p class="text-xs text-brand-accent mb-6 font-bold uppercase tracking-widest">Максимальна автоматизація</p>
+                    <ul class="space-y-4 mb-10 text-slate-200">
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> Всі месенджери компанії</li>
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> Інтеграція з ERP (1C/BAS)</li>
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> Складна логіка розрахунків</li>
+                        <li><i class="fas fa-check text-brand-accent mr-2"></i> Пріоритетна підтримка</li>
+                    </ul>
+                    <a href="#lead-form" class="block w-full text-center py-4 bg-brand-accent text-white rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-brand-accent/20">Зв'язатись з нами</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Form Block -->
+    <section id="lead-form" class="py-20 bg-gradient-dark border-y border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-5xl mx-auto bg-brand-surface rounded-[40px] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-slate-700">
+                <div class="md:w-2/5 p-12 bg-brand-accent text-white">
+                    <h2 class="text-3xl font-black mb-6 leading-tight">Готові звільнити свій відділ продажу від рутини?</h2>
+                    <p class="mb-8 opacity-90">Залиште заявку на безкоштовний аудит та демонстрацію роботи AI-агента на ваших даних.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center"><i class="fas fa-shield-halved"></i></div>
+                            <p class="text-sm font-medium">Гарантія повернення коштів</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center"><i class="fas fa-bolt"></i></div>
+                            <p class="text-sm font-medium">Перший лід вже за 3 години після старту</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-3/5 p-12">
+                    <form id="leadForm" class="space-y-4">
+                        <input type="hidden" name="pageid" id="pageidInput">
+                        <input type="hidden" name="source_info" value="avtomatizatsiya_biznesu">
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">Ваше Ім'я *</label>
+                                <input type="text" name="name" required placeholder="Іван Іванов" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">E-mail *</label>
+                                <input type="email" name="email" required placeholder="example@gmail.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">Телефон *</label>
+                                <input type="tel" name="phone" id="phone" required placeholder="380XXXXXXXXX" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">Telegram / Viber</label>
+                                <input type="text" name="telegram" placeholder="@username" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">Компанія</label>
+                                <input type="text" name="company" placeholder="Назва вашого бізнесу" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">Сайт компанії (URL)</label>
+                                <input type="url" name="website" placeholder="https://example.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">Послуга *</label>
+                                <select name="service" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                                    <option value="">Оберіть варіант</option>
+                                    <option value="AI-Sales Starter">AI-Sales Starter</option>
+                                    <option value="Custom Integration">Custom Integration (ERP/1C)</option>
+                                    <option value="Audit Only">Тільки аудит</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs uppercase font-bold text-slate-500">Орієнтовний бюджет</label>
+                                <select name="budget" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none">
+                                    <option value="">Бюджет</option>
+                                    <option value="До 30к грн">До 30,000 грн</option>
+                                    <option value="30-60к грн">30,000 - 60,000 грн</option>
+                                    <option value="Понад 60к грн">Понад 60,000 грн</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs uppercase font-bold text-slate-500">Ваше завдання / Питання</label>
+                            <textarea name="task" rows="3" placeholder="Опишіть ваші болі або побажання..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:border-brand-accent outline-none"></textarea>
+                        </div>
+
+                        <div class="py-2">
+                            <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-white text-brand-dark font-black py-4 rounded-xl hover:bg-brand-accent hover:text-white transition-all text-lg shadow-xl uppercase tracking-wider">
+                            Надіслати заявку
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-brand-dark">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl font-bold text-white text-center mb-12">Поширені запитання</h2>
+            <div class="space-y-4">
+                <details class="group bg-brand-surface rounded-xl border border-slate-800">
+                    <summary class="p-6 cursor-pointer font-bold text-white list-none flex justify-between items-center">
+                        Чи може AI "вигадувати" інформацію (галюцинації)?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="p-6 pt-0 text-slate-400 border-t border-slate-800">
+                        Ми використовуємо технологію RAG (Retrieval-Augmented Generation), яка обмежує відповіді AI тільки вашою базою знань. Якщо відповіді немає в документах, бот ввічливо переведе діалог на менеджера.
+                    </div>
+                </details>
+                <details class="group bg-brand-surface rounded-xl border border-slate-800">
+                    <summary class="p-6 cursor-pointer font-bold text-white list-none flex justify-between items-center">
+                        Чи безпечно передавати дані через OpenAI?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="p-6 pt-0 text-slate-400 border-t border-slate-800">
+                        Ми працюємо через Enterprise API, де дані не використовуються для навчання моделей. Крім того, ми повністю відповідаємо GDPR та Закону України "Про захист персональних даних".
+                    </div>
+                </details>
+                <details class="group bg-brand-surface rounded-xl border border-slate-800">
+                    <summary class="p-6 cursor-pointer font-bold text-white list-none flex justify-between items-center">
+                        Скільки коштує утримання бота після впровадження?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="p-6 pt-0 text-slate-400 border-t border-slate-800">
+                        Ви оплачуєте лише токени (використання потужностей AI) та нашу підтримку (від 3000 грн/міс). Зазвичай витрати на токени для середнього бізнесу не перевищують 500-1000 грн/міс.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="text-3xl font-black text-white">VCHASNO</span>
+                    <p class="text-slate-500 mt-4 max-w-sm">Автоматизація B2B продажів за допомогою штучного інтелекту. Працюємо для вашого масштабування 24/7.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-6">Юридична інформація</h5>
+                    <ul class="space-y-3 text-slate-400 text-sm">
+                        <li><a href="pp.html" class="hover:text-brand-accent transition">Політика Конфіденційності</a></li>
+                        <li><a href="rules.html" class="hover:text-brand-accent transition">Умови Надання Послуг</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-6">Зв'язок</h5>
+                    <p class="text-slate-400 text-sm">Тільки через форму зворотного зв'язку або месенджери після залишення заявки.</p>
+                </div>
+            </div>
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+                <p>&copy; 2025 VCHASNO. Всі права захищені. </p>
+                <p>Designed for High Conversion B2B Sales</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate UUID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                try {
+                    pageidInput.value = crypto.randomUUID();
+                } catch (e) {
+                    pageidInput.value = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                        return v.toString(16);
+                    });
+                }
+            }
+
+            // Phone Masking (Digits only)
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').substring(0, 12);
+            });
+
+            // Form Submission
+            document.getElementById('leadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Будь ласка, пройдіть капчу');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+                const formData = new FormData(this);
+                
+                // Clean phone
+                const rawPhone = formData.get('phone').replace(/\D/g, '');
+                
+                const params = new URLSearchParams();
+                for (const pair of formData.entries()) {
+                    if(pair[0] === 'phone') {
+                        params.append(pair[0], rawPhone);
+                    } else {
+                        params.append(pair[0], pair[1]);
+                    }
+                }
+
+                // Add captcha manually if not present
+                if (!params.has('g-recaptcha-response')) {
+                    params.append('g-recaptcha-response', captchaResponse);
+                }
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || (data.result && data.result.includes('Success'))) {
+                        showToast('success', 'Дякуємо! Заявка отримана. Наш AI-асистент або менеджер зв’яжуться з вами найближчим часом.');
+                        window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                        this.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка: ' + (data.result || 'Невідома помилка'));
+                    }
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    showToast('error', 'Сталася помилка при відправці. Спробуйте пізніше.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+        });
+
+        function showToast(type, message) {
+            Toastify({
+                text: message,
+                duration: 5000,
+                close: true,
+                gravity: "top", 
+                position: "right", 
+                stopOnFocus: true, 
+                style: {
+                    background: type === 'success' ? "#10b981" : "#ef4444",
+                    borderRadius: "10px",
+                    fontWeight: "bold",
+                    fontSize: "14px"
+                },
+            }).showToast();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>SmartPrice-Sync: Автоматичне оновлення цін та контроль маржі в Google Sheets</title>
+    <meta name="description" content="Захистіть свій прибуток від коливань курсу. Впровадимо систему автоматичного збору прайс-листів постачальників та перерахунку цін у Google Sheets за 10 днів.">
+    <meta name="keywords" content="автоматичне оновлення цін, парсинг прайсів excel, синхронізація цін з курсом долара, автоматизація для інтернет магазину, google sheets ціни, xml фід для розетки">
+    <link rel="canonical" href="https://vchasno-price.com.ua/">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Toastify JS CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "SmartPrice-Sync від VCHASNO",
+      "description": "Автоматичне управління маржинальністю та цінами в Google Sheets. Парсинг прайсів, синхронізація з курсом валют.",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "areaServed": "UA",
+      "offers": {
+        "@type": "Offer",
+        "price": "За запитом",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+
+    <style>
+        .step-number {
+            -webkit-text-stroke: 1px rgba(59, 130, 246, 0.2);
+            color: transparent;
+        }
+        input:invalid { border-color: #f87171; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-bold tracking-tight text-blue-600">VCHASNO</span>
+                <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">Вчасно розпочати — вчасно масштабувати</p>
+            </div>
+            <a href="#form-section" class="bg-blue-600 text-white px-5 py-2 rounded-md font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 hidden sm:block">
+                Отримати консультацію
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-white pt-16 pb-24 border-b border-slate-100">
+            <div class="container mx-auto px-6 text-center">
+                <div class="inline-block bg-blue-50 text-blue-700 px-4 py-1 rounded-full text-sm font-bold mb-6">
+                    Автоматизація ціноутворення 24/7
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-8">
+                    Перестаньте продавати в мінус: <br class="hidden md:block"> 
+                    <span class="text-blue-600 tracking-tight">Захистіть свою маржу</span> від стрибків курсу
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
+                    Впровадимо систему автоматичного збору прайсів постачальників та перерахунку цін у Google Sheets за 10 днів. Вартість окупається за 2 тижні збереженого прибутку.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#form-section" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-200">
+                        Дізнатись вартість для мого бізнесу
+                    </a>
+                    <a href="#how-it-works" class="bg-slate-100 text-slate-700 px-8 py-4 rounded-lg font-bold text-lg hover:bg-slate-200 transition-all">
+                        Як це працює?
+                    </a>
+                </div>
+                <div class="mt-12 flex flex-wrap justify-center gap-8 text-slate-400 grayscale opacity-70">
+                    <div class="flex items-center gap-2"><i class="fa-brands fa-google-drive text-2xl"></i> <span class="font-bold">Google Sheets</span></div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-envelope-open-text text-2xl"></i> <span class="font-bold">Gmail API</span></div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-building-columns text-2xl"></i> <span class="font-bold">Bank API</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Скільки грошей ви втрачаєте за 1 день, коли ціни не оновлені?</h2>
+                    <p class="text-slate-600">Ручне оновлення — це не просто рутина, це прямі фінансові втрати.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="w-12 h-12 bg-red-50 text-red-600 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-chart-line-down text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Втрата маржі</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Курс долара зріс на 50 копійок, а ви дізналися про це лише ввечері. Результат — ви продали партію товару в нуль або мінус.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-clock-rotate-left text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">40 годин рутини</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Ваш менеджер витрачає тиждень на місяць лише на те, щоб відкрити 10 файлів Excel і переписати цифри в таблицю.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="w-12 h-12 bg-slate-50 text-slate-600 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-ban text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Бан на маркетплейсах</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Rozetka або Prom знижують рейтинг вашого магазину через неактуальні ціни. Ви втрачаєте топові позиції в пошуку.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section id="how-it-works" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-8">Готова система в Google Sheets, що працює на вас 24/7</h2>
+                        <div class="space-y-8">
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Авто-збір прайсів</h4>
+                                    <p class="text-slate-600 text-sm">Скрипт сам знаходить нові листи від постачальників у Gmail або завантажує файли за посиланнями.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Курс валют в реальному часі</h4>
+                                    <p class="text-slate-600 text-sm">Інтеграція з API НБУ або Monobank для миттєвого отримання актуального курсу.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Розумний перерахунок</h4>
+                                    <p class="text-slate-600 text-sm">Автоматичне застосування правил маржі для кожної категорії чи бренду окремо.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">XML-фід для маркетплейсів</h4>
+                                    <p class="text-slate-600 text-sm">Генерація готового посилання для Rozetka, Prom, Horoshop за один клік.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-3xl shadow-2xl">
+                        <img src="https://placehold.co/600x400/0f172a/60a5fa?text=SmartPrice+Dashboard\nSupplier+A:+OK\nCurrency:+38.45\nMargin:+15%\nStatus:+Updated" alt="Інтерфейс системи" class="rounded-2xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing/Comparison Section -->
+        <section class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Разова інвестиція чи постійні збитки?</h2>
+                </div>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-0 border border-slate-200 rounded-3xl overflow-hidden shadow-xl">
+                    <div class="bg-white p-10">
+                        <h4 class="text-slate-400 font-bold uppercase text-xs mb-4 tracking-widest">Ручне оновлення</h4>
+                        <div class="space-y-4 text-slate-600">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-500"></i> <span>~10 год/тиждень часу менеджера</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-500"></i> <span>Ризик "людського фактору" 100%</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-xmark text-red-500"></i> <span>Втрати на курсі: від 3000 грн/міс</span></div>
+                        </div>
+                        <div class="mt-10 pt-6 border-t border-slate-100">
+                            <p class="text-2xl font-bold text-slate-400">Постійні витрати</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-600 p-10 text-white">
+                        <h4 class="text-blue-200 font-bold uppercase text-xs mb-4 tracking-widest">SmartPrice-Sync</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-check text-blue-300"></i> <span>Оновлення за 10 секунд</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-check text-blue-300"></i> <span>Точність розрахунків 100%</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-check text-blue-300"></i> <span>Захист прибутку 24/7</span></div>
+                        </div>
+                        <div class="mt-10 pt-6 border-t border-blue-500">
+                            <p class="text-sm text-blue-100 mb-1">Разова оплата від</p>
+                            <p class="text-4xl font-extrabold">35 000 грн</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Form Section -->
+        <section id="form-section" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto bg-slate-900 rounded-[2rem] p-8 md:p-16 text-white overflow-hidden relative shadow-2xl shadow-blue-900/20">
+                    <div class="relative z-10 grid lg:grid-cols-2 gap-12">
+                        <div>
+                            <h2 class="text-3xl md:text-4xl font-bold mb-6">Сьогодні курс знову змінився. Скільки ви вже втратили?</h2>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Залиште заявку, і ми безкоштовно розрахуємо, як захистити вашу маржу та автоматизувати 90% ручної роботи вже за 10 днів.</p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></div>
+                                    <span class="text-sm">Офіційний договір ФОП</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></div>
+                                    <span class="text-sm">Дані залишаються у вас</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <form id="leadForm" class="bg-white p-8 rounded-2xl text-slate-900 space-y-4 shadow-xl">
+                                <input type="hidden" name="pageid" id="pageidInput">
+                                <input type="hidden" name="source_info" value="avtomatizatsiya_tsinoutvorennya">
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Ваше ім'я*</label>
+                                        <input type="text" name="name" required class="w-full bg-slate-50 border border-slate-200 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Телефон*</label>
+                                        <input type="tel" name="phone" required placeholder="+38 (0XX) XXX-XX-XX" class="w-full bg-slate-50 border border-slate-200 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Email*</label>
+                                        <input type="email" name="email" required class="w-full bg-slate-50 border border-slate-200 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Telegram</label>
+                                        <input type="text" name="telegram" class="w-full bg-slate-50 border border-slate-200 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Компанія</label>
+                                        <input type="text" name="company" class="w-full bg-slate-50 border border-slate-200 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">К-ть постачальників*</label>
+                                        <select name="service" required class="w-full bg-slate-50 border border-slate-200 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition appearance-none">
+                                            <option value="">Оберіть...</option>
+                                            <option value="1-3">1-3 постачальники</option>
+                                            <option value="4-10">4-10 постачальників</option>
+                                            <option value="10+">Більше 10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="website" value="N/A">
+                                <input type="hidden" name="budget" value="35-55k">
+                                <textarea name="task" hidden>Запит на автоматизацію цін</textarea>
+
+                                <div class="flex justify-center py-2">
+                                    <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                                </div>
+
+                                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all uppercase tracking-wider text-sm">
+                                    Надіслати запит
+                                </button>
+                                <p class="text-[10px] text-center text-slate-400">Натискаючи на кнопку, ви погоджуєтесь з <a href="pp.html" class="underline">політикою конфіденційності</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-3xl font-bold mb-12 text-center">Часті питання</h2>
+                <div class="space-y-4">
+                    <details class="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm cursor-pointer transition-all hover:border-blue-300">
+                        <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                            Чи може скрипт працювати з прайсами у форматі PDF?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-all text-blue-500"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Базова вартість включає XLSX та CSV. PDF є складним форматом для парсингу, але ми можемо налаштувати його вичитку за додаткову плату після аналізу структури файлу постачальника.</p>
+                    </details>
+                    <details class="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm cursor-pointer transition-all hover:border-blue-300">
+                        <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                            Ви отримаєте доступ до моєї пошти Gmail?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-all text-blue-500"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Ні. Скрипт працює всередині вашого акаунту Google. Ви самі надаєте йому дозвіл на читання лише тих листів, які містять прайс-листи (за налаштованим фільтром). Ми не бачимо вашої пошти.</p>
+                    </details>
+                    <details class="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm cursor-pointer transition-all hover:border-blue-300">
+                        <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                            Чи потрібно платити щомісячну абонплату?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-all text-blue-500"></i>
+                        </summary>
+                        <p class="text-slate-600 text-sm mt-4 leading-relaxed">Ні, це разова оплата за розробку та впровадження. Система залишається у вас назавжди.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col items-center mb-8">
+                <span class="text-white font-bold text-xl mb-1">VCHASNO</span>
+                <span class="text-[10px] uppercase tracking-widest text-slate-500">Вчасно розпочати — вчасно масштабувати</span>
+            </div>
+            <div class="flex justify-center gap-6 mb-8 text-sm">
+                <a href="pp.html" class="hover:text-white transition-colors">Політика конфіденційності</a>
+                <a href="rules.html" class="hover:text-white transition-colors">Умови надання послуг</a>
+            </div>
+            <p class="text-[11px]">&copy; 2026 VCHASNO. Всі права захищено. Створено для e-commerce України.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate UUID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                pageidInput.value = ([1e7]+-1e3+-4e3+-8e2+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            // Phone Mask Simple
+            const phoneInput = document.querySelector('input[name="phone"]');
+            phoneInput.addEventListener('input', function(e) {
+                let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+                e.target.value = !x[2] ? x[1] : '+' + x[1] + ' (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+            });
+
+            // Form Submit
+            document.getElementById('leadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Пройдіть капчу');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+                const formData = new FormData(this);
+                const rawPhone = formData.get('phone').replace(/\D/g, '');
+                
+                const params = new URLSearchParams(formData);
+                params.set('phone', rawPhone);
+                if (!params.has('g-recaptcha-response')) {
+                    params.append('g-recaptcha-response', captchaResponse);
+                }
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || data.result.includes('Success')) {
+                        showToast('success', 'Дякуємо! Зв\'яжемось протягом 15 хв.');
+                        window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                        this.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка відправки');
+                    }
+                })
+                .catch(err => {
+                    showToast('error', 'Помилка мережі');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+
+            function showToast(type, message) {
+                Toastify({
+                    text: message,
+                    duration: 4000,
+                    gravity: "bottom",
+                    position: "center",
+                    style: {
+                        background: type === "success" ? "#10b981" : "#ef4444",
+                        borderRadius: "12px",
+                        fontWeight: "bold",
+                        boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)"
+                    }
+                }).showToast();
+            }
+        });
+    </script>
+</body>
+</html>

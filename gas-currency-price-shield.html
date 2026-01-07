@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автоматичне оновлення цін за курсом валют | Захист маржі для вашого бізнесу</title>
+    <meta name="description" content="🛡️ Перестаньте втрачати гроші на коливаннях курсу! Впровадимо скрипт, що автоматично оновлює ваші ціни на Prom/Horoshop за реальним курсом Monobank. Захистіть свій прибуток 24/7.">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .step-number { position: absolute; top: -10px; left: -10px; font-size: 5rem; font-weight: 800; color: #3b82f6; opacity: 0.05; z-index: 0; pointer-events: none; }
+        .form-input:invalid { border-color: #ef4444; }
+        .form-input:focus { border-color: #3b82f6; outline: none; ring: 2px; ring-color: #dbeafe; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .price-up { color: #10b981; }
+        .price-down { color: #ef4444; }
+    </style>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "VCHASNO",
+      "description": "Автоматичне динамічне ціноутворення за курсом валют для Prom.ua та Horoshop через Google Sheets.",
+      "areaServed": "UA",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "По запиту",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Header -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-slate-200">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-extrabold text-slate-900 tracking-tighter">VCHASNO</span>
+                <span class="text-[10px] uppercase tracking-widest text-blue-600 font-bold">Вчасно розпочати — вчасно масштабувати</span>
+            </div>
+            <a href="#contact" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-bold transition-all transform hover:scale-105">
+                Безкоштовна консультація
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 hero-gradient text-white overflow-hidden">
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2 z-10">
+                <div class="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 text-blue-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+                    <i class="fas fa-shield-halved"></i> Currency-Shield 2024
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                    Курс долара знову стрибнув? <span class="text-blue-400">Захистіть свій прибуток.</span>
+                </h1>
+                <p class="text-xl text-slate-300 mb-8 max-w-xl leading-relaxed">
+                    Впровадимо систему, яка автоматично оновлює ваші ціни в гривні за реальним курсом валют кожну годину. Перестаньте продавати в мінус.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white text-center px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-blue-500/20 transition-all">
+                        Отримати консультацію
+                    </a>
+                    <div class="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-xl border border-white/10">
+                        <i class="fas fa-chart-line text-emerald-400 text-2xl"></i>
+                        <span class="text-xs text-slate-400">Автоматичне оновлення <br>Prom / Horoshop / Rozetka</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative">
+                <div class="relative z-10 bg-slate-800 p-2 rounded-2xl shadow-2xl border border-white/10">
+                    <img src="https://placehold.co/600x400/1e293b/ffffff?text=Dynamic+Pricing+Dashboard" alt="Dynamic Pricing Dashboard" class="rounded-xl">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-emerald-600 p-6 rounded-2xl shadow-xl hidden md:block">
+                    <p class="text-xs uppercase tracking-widest font-bold mb-1">Курс оновлено</p>
+                    <p class="text-2xl font-black">USD: 41.20 <i class="fas fa-arrow-up text-sm"></i></p>
+                    <p class="text-[10px] opacity-80">Ціни на сайті змінено автоматично</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Що ви втрачаєте СЬОГОДНІ, оновлюючи ціни вручну?</h2>
+                <p class="text-slate-600 text-lg">Кожна хвилина затримки під час стрибка курсу — це ваші гроші, які ви просто даруєте.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 card-hover">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-money-bill-trend-up text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-4">Прямі збитки</h4>
+                    <p class="text-slate-600">Стрибок курсу на 1 грн = втрата 10 000 грн прибутку на кожних $10 000 обороту. Ви продаєте в мінус.</p>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 card-hover">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-user-clock text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-4">Час менеджера</h4>
+                    <p class="text-slate-600">5-10 годин на тиждень ваш співробітник копіює цифри та оновлює прайси замість того, щоб продавати.</p>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-3xl border border-slate-100 card-hover">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-star-half-stroke text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-4">Втрата репутації</h4>
+                    <p class="text-slate-600">Скасування замовлень через неактуальну ціну дратує клієнтів та знижує ваш рейтинг на маркетплейсах.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-24 bg-slate-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Як працює ваш щит для маржі</h2>
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="relative p-8 bg-slate-800 rounded-3xl border border-slate-700">
+                    <div class="text-blue-500 text-5xl font-black mb-6">01</div>
+                    <h4 class="text-xl font-bold mb-4 uppercase">Моніторинг курсу</h4>
+                    <p class="text-slate-400">Скрипт щогодини автоматично перевіряє актуальний курс в Monobank, НБУ або іншому банку.</p>
+                </div>
+                <div class="relative p-8 bg-slate-800 rounded-3xl border border-slate-700">
+                    <div class="text-blue-500 text-5xl font-black mb-6">02</div>
+                    <h4 class="text-xl font-bold mb-4 uppercase">Перерахунок</h4>
+                    <p class="text-slate-400">Миттєво оновлює ціни у вашій Google Таблиці за вашою індивідуальною формулою та маржею.</p>
+                </div>
+                <div class="relative p-8 bg-slate-800 rounded-3xl border border-slate-100/10">
+                    <div class="text-blue-500 text-5xl font-black mb-6">03</div>
+                    <h4 class="text-xl font-bold mb-4 uppercase">Синхронізація</h4>
+                    <p class="text-slate-400">Автоматично завантажує оновлені ціни на ваш сайт (Prom, Horoshop, Rozetka) через API.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Wins -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8">Що зміниться у вашому бізнесі вже за 3 дні?</h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-lg">100% захист маржі</h5>
+                                <p class="text-slate-600">Ваші ціни будуть на 100% захищені від коливань курсу 24/7, навіть коли ви спите.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-lg">Спокій власника</h5>
+                                <p class="text-slate-600">Ви перестанете втрачати прибуток і зможете спати спокійно, знаючи, що не продаєте в мінус.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-lg">Ефективність команди</h5>
+                                <p class="text-slate-600">Ваш менеджер отримає +1 робочий день на місяць для реальних продажів та розвитку.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 bg-slate-900 p-8 rounded-3xl shadow-2xl">
+                    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 mb-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-slate-400 uppercase">Лог оновлень</span>
+                            <span class="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-1 rounded">Live</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-300">Курс Monobank</span>
+                                <span class="text-emerald-400 font-bold">41.25 <i class="fas fa-caret-up"></i></span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-300">Товарів оновлено</span>
+                                <span class="text-blue-400 font-bold">1,452 SKU</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-300">Статус API Prom</span>
+                                <span class="text-emerald-400 font-bold">Успішно</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-600/10 border border-blue-500/20 rounded-xl p-4 flex items-center gap-4">
+                        <i class="fas fa-robot text-2xl text-blue-400"></i>
+                        <p class="text-sm text-slate-300 italic">"Система автоматично перерахувала ціни згідно з вашою маржею 30%."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-24 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+                <div class="md:flex">
+                    <div class="md:w-2/3 p-8 md:p-16">
+                        <h2 class="text-3xl font-bold mb-6">Скільки коштує страховка вашого прибутку?</h2>
+                        <p class="text-slate-600 mb-10 text-lg">
+                            Це разова інвестиція, яка окупається за один день сильних коливань курсу. Ви платите раз, а захист працює роками.
+                        </p>
+                        <div class="space-y-4 mb-10">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-blue-600"></i>
+                                <span class="font-semibold">1 джерело курсу + 1 маркетплейс</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-blue-600"></i>
+                                <span class="font-semibold">Оплата 50/50 по договору</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-check-circle text-blue-600"></i>
+                                <span class="font-semibold">14 днів техпідтримки включено</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3 bg-slate-900 p-12 text-white flex flex-col justify-center items-center text-center">
+                        <span class="text-slate-400 uppercase tracking-widest text-xs mb-4">Вартість впровадження</span>
+                        <div class="text-sm text-slate-400 mb-1">від</div>
+                        <div class="text-5xl font-extrabold mb-2 text-blue-400">30 000</div>
+                        <div class="text-xl font-bold mb-10">грн</div>
+                        <a href="#contact" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20">
+                            Розрахувати ціну
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Form Section -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Отримайте безкоштовну консультацію</h2>
+                    <p class="text-slate-600 text-lg">Розрахуємо потенційну економію для вашого бізнесу та покажемо демо системи.</p>
+                </div>
+
+                <form id="leadForm" class="bg-slate-50 p-8 md:p-12 rounded-3xl border border-slate-200 shadow-sm">
+                    <input type="hidden" name="pageid" id="pageidInput">
+                    <input type="hidden" name="source_info" value="tsinoutvorennya_valyuta">
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                        <!-- Contacts -->
+                        <div class="space-y-5">
+                            <p class="text-xs font-bold uppercase text-blue-600 tracking-widest border-b border-blue-100 pb-2">1. Контакти</p>
+                            <input type="text" name="name" placeholder="Ваше ім'я *" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="email" name="email" placeholder="Email *" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="tel" name="phone" id="phoneInput" placeholder="380XXXXXXXXX *" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="text" name="telegram" placeholder="Telegram / Viber" class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                        </div>
+
+                        <!-- Company -->
+                        <div class="space-y-5">
+                            <p class="text-xs font-bold uppercase text-blue-600 tracking-widest border-b border-blue-100 pb-2">2. Компанія</p>
+                            <input type="text" name="company" placeholder="Назва компанії" class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <input type="url" name="website" placeholder="Посилання на магазин/прайс *" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                            <select name="service" required class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                                <option value="">Ваша платформа *</option>
+                                <option value="Prom">Prom.ua</option>
+                                <option value="Horoshop">Horoshop</option>
+                                <option value="Rozetka">Rozetka</option>
+                                <option value="Other">Інша / Прайс-фід</option>
+                            </select>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="space-y-5">
+                            <p class="text-xs font-bold uppercase text-blue-600 tracking-widest border-b border-blue-100 pb-2">3. Деталі</p>
+                            <select name="budget" class="w-full p-3.5 rounded-xl border border-slate-300 form-input">
+                                <option value="">Очікуваний бюджет</option>
+                                <option value="30-40k">30,000 - 40,000 грн</option>
+                                <option value="40-55k">40,000 - 55,000 грн</option>
+                                <option value="55k+">Понад 55,000 грн</option>
+                            </select>
+                            <textarea name="task" placeholder="Яку валюту використовуєте? Яка кількість SKU у вашому прайсі?" class="w-full p-3.5 rounded-xl border border-slate-300 form-input h-24"></textarea>
+                            
+                            <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-xl transition-all transform active:scale-95">
+                                НАДІСЛАТИ ЗАЯВКУ
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl font-bold text-center mb-12">Часті питання</h2>
+            <div class="space-y-4">
+                <details class="group bg-slate-50 p-6 rounded-2xl border border-slate-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        Який курс валют використовується?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="mt-4 text-slate-600 text-sm leading-relaxed">Будь-який, який вам потрібен. Найчастіше ми використовуємо реальний картковий або комерційний курс Monobank, оскільки він найближчий до ринкового. Можна також використовувати курс НБУ або іншого банку з відкритим API.</p>
+                </details>
+                <details class="group bg-slate-50 p-6 rounded-2xl border border-slate-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        А якщо в мене складна формула ціноутворення?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="mt-4 text-slate-600 text-sm leading-relaxed">Ми можемо автоматизувати майже будь-яку логіку, яку можна описати в Google Sheets: різні націнки на різні категорії, округлення до 99 грн, додавання фіксованих витрат або податків тощо.</p>
+                </details>
+                <details class="group bg-slate-50 p-6 rounded-2xl border border-slate-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold list-none">
+                        Це безпечно для моїх комерційних даних?
+                        <span class="group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="mt-4 text-slate-600 text-sm leading-relaxed">Так. Вся система працює у вашому власному корпоративному Google-акаунті. Ваші закупівельні ціни та націнки ніколи не покидають вашого простору. Ми не маємо до них доступу після налаштування.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO Text Block -->
+    <section class="py-12 bg-white border-t border-slate-100">
+        <div class="container mx-auto px-4 text-center max-w-4xl">
+            <p class="text-slate-400 text-[10px] leading-relaxed uppercase tracking-wider">
+                Забезпечте стабільність вашого бізнесу через автоматичне оновлення цін по курсу валют. Наше рішення на базі Google Sheets дозволяє налаштувати прив'язку ціни до долара або євро для магазинів на Prom.ua та Horoshop. Скрипт для ціноутворення проводить моніторинг курсу валют Monobank/НБУ та автоматично оновлює ваші прайс-листи, захищаючи вашу маржу. Автоматизація прайсів — це необхідний крок для всіх імпортерів в умовах нестабільної економіки.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex flex-col items-center md:items-start">
+                    <span class="text-3xl font-extrabold tracking-tighter">VCHASNO</span>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Вчасно розпочати — вчасно масштабувати</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-400">
+                    <a href="pp.html" class="hover:text-white transition-colors">Політика Конфіденційності</a>
+                    <a href="rules.html" class="hover:text-white transition-colors">Умови Надання Послуг</a>
+                </div>
+                <div class="text-slate-500 text-sm">
+                    &copy; 2024 VCHASNO. Всі права захищені.
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-slate-800 text-center">
+                <p class="text-slate-500 text-xs max-w-2xl mx-auto">
+                    Поки ви читаєте цей текст, курс міг знову змінитись. Кожна година без автоматизації — це лотерея, в якій ви можете втратити денний прибуток. Не ризикуйте.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Generate Unique Page ID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                pageidInput.value = ([1e7]+-1e3+-4e3+-8e2+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            // 2. Phone Mask Logic
+            const phoneInput = document.getElementById('phoneInput');
+            phoneInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').substring(0, 12);
+            });
+
+            // 3. Form Submission
+            const form = document.getElementById('leadForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Captcha validation
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Будь ласка, пройдіть капчу');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+                const formData = new FormData(this);
+                
+                // Clean phone number for API
+                const rawPhone = formData.get('phone').replace(/\D/g, '');
+                const params = new URLSearchParams(formData);
+                params.set('phone', rawPhone);
+                
+                if (!params.has('g-recaptcha-response')) {
+                    params.append('g-recaptcha-response', captchaResponse);
+                }
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || (data.result && data.result.includes('Success'))) {
+                        showToast('success', 'Дякуємо! Заявка отримана. Ми зв’яжемося з вами найближчим часом.');
+                        window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                        form.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка: ' + (data.result || 'Невідома помилка'));
+                    }
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    showToast('error', 'Сталася помилка при відправці. Спробуйте пізніше.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+        });
+
+        function showToast(type, message) {
+            Toastify({
+                text: message,
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: type === 'success' ? "#3b82f6" : "#ef4444",
+                stopOnFocus: true
+            }).showToast();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автоматизація подачі показників газу для бізнесу | GasControl-UA</title>
+    <meta name="description" content="Припиніть переплачувати за газ через помилки в показниках. Автоматизуйте подачу даних у Gazseti та звірку рахунків у Вчасно за 10 днів. Заощаджуйте обігові кошти вже цього місяця.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // Navy Blue
+                        secondary: '#10b981', // Emerald Green
+                        accent: '#f59e0b' // Amber
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Schema.org Microdata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "VCHASNO",
+      "description": "Припиніть переплачувати за газ через помилки в показниках. Автоматизуйте подачу даних у Gazseti та звірку рахунків у Вчасно за 10 днів.",
+      "areaServed": "UA",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "По запиту",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+
+    <style>
+        .step-number {
+            -webkit-text-stroke: 1px rgba(30, 58, 138, 0.1);
+            color: transparent;
+            font-size: 8rem;
+            line-height: 1;
+            z-index: 0;
+        }
+        input:invalid {
+            border-color: #ef4444;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(#1e3a8a 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.05;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900 bg-white leading-relaxed">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-primary tracking-tighter">VCHASNO</span>
+                <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Вчасно розпочати — вчасно масштабувати</span>
+            </div>
+            <nav class="hidden md:flex space-x-8 font-medium text-sm text-gray-600">
+                <a href="#problem" class="hover:text-primary transition">Проблема</a>
+                <a href="#solution" class="hover:text-primary transition">Рішення</a>
+                <a href="#process" class="hover:text-primary transition">Процес</a>
+                <a href="#pricing" class="hover:text-primary transition">Вартість</a>
+            </nav>
+            <a href="#contact-form" class="bg-primary text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-800 transition shadow-lg shadow-blue-200">
+                Безкоштовний аудит
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="inline-block py-1 px-4 rounded-full bg-blue-50 text-primary text-xs font-bold uppercase tracking-widest mb-6 border border-blue-100">
+                    Автоматизація Gazseti & Вчасно
+                </span>
+                <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 leading-tight">
+                    Зупиніть «заморожування» грошей на рахунках Газмереж
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+                    Поверніть контроль над бюджетом: гарантована подача показників за 60 секунд без входу в кабінети та автоматична звірка рахунків.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#contact-form" class="bg-secondary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                        Розрахувати потенційну переплату
+                    </a>
+                    <a href="#how-it-works" class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition">
+                        Як це працює?
+                    </a>
+                </div>
+                <div class="mt-12 flex items-center justify-center space-x-8 opacity-60 grayscale hover:grayscale-0 transition duration-500">
+                    <img src="https://placehold.co/120x40/transparent/666?text=HoReCa" alt="HoReCa Clients">
+                    <img src="https://placehold.co/120x40/transparent/666?text=Production" alt="Production Clients">
+                    <img src="https://placehold.co/120x40/transparent/666?text=Retail" alt="Retail Clients">
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-pattern -z-0"></div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Скільки ви втрачаєте на «нормативних» нарахуваннях?</h2>
+                    <div class="space-y-4">
+                        <div class="bg-white p-6 rounded-2xl border-l-4 border-red-500 shadow-sm">
+                            <p class="text-gray-700 font-medium">Якщо бухгалтер пропустив вікно (1-5 число):</p>
+                            <p class="text-2xl font-bold text-red-600">Від 40,000 до 150,000 грн</p>
+                            <p class="text-sm text-gray-500 mt-1">Обігових коштів "заморожуються" на місяці як переплата.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border-l-4 border-amber-500 shadow-sm">
+                            <p class="text-gray-700 font-medium">Людський фактор та технічні збої:</p>
+                            <p class="text-gray-600 italic">Кабінет Gazseti "лежить", працівник захворів, або цифру в блокноті записали невірно — постачальник миттєво виставляє рахунок за середнім споживанням.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100">
+                        <div class="flex items-center justify-between mb-8">
+                            <span class="font-bold text-gray-800">Калькулятор касового розриву</span>
+                            <i class="fa-solid fa-calculator text-primary"></i>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-600 mb-2 uppercase tracking-wide">Ваше споживання (м³)</label>
+                                <div class="bg-gray-100 h-2 w-full rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full w-3/4"></div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 bg-gray-50 rounded-xl">
+                                    <span class="block text-xs text-gray-500 uppercase">Реальний рахунок</span>
+                                    <span class="text-xl font-bold text-gray-800">120,000 грн</span>
+                                </div>
+                                <div class="p-4 bg-red-50 rounded-xl">
+                                    <span class="block text-xs text-red-500 uppercase">Рахунок "за нормами"</span>
+                                    <span class="text-xl font-bold text-red-600">265,000 грн</span>
+                                </div>
+                            </div>
+                            <p class="text-center text-sm font-medium text-gray-500">Різниця 145,000 грн — це ваш безвідсотковий кредит газовій службі.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="py-24">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">GasControl-UA — це страховка вашого бюджету</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Ми об'єднали Telegram, API Gazseti та сервіс Вчасно в єдину систему автоматизації.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group p-8 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fa-brands fa-telegram text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Збір даних через Telegram</h3>
+                    <p class="text-gray-600 text-sm">Співробітник на об'єкті просто відправляє фото лічильника або текст у бот. Дані автоматично валідуються.</p>
+                </div>
+                <div class="group p-8 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-secondary group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Гарантована подача</h3>
+                    <p class="text-gray-600 text-sm">Скрипт автоматично завантажує дані в кабінет Gazseti у вікно подачі. Якщо кабінет не працює — бот повторює спроби кожну годину.</p>
+                </div>
+                <div class="group p-8 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Звірка у "Вчасно"</h3>
+                    <p class="text-gray-600 text-sm">Система через API моніторить нові акти та звіряє суми з поданими показниками. При розбіжностях ви отримуєте сповіщення.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-24 bg-gray-900 text-white overflow-hidden">
+        <div class="container mx-auto px-4 relative">
+            <h2 class="text-3xl md:text-5xl font-black mb-16 text-center">Впровадження за 10 днів</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="relative z-10">
+                    <span class="step-number absolute -top-8 -left-4">01</span>
+                    <div class="pt-16">
+                        <h4 class="text-xl font-bold mb-2">Технічний аудит</h4>
+                        <p class="text-gray-400 text-sm">Перевіряємо кабінети, типи лічильників та наявність боргів. (1-2 дні)</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative z-10">
+                    <span class="step-number absolute -top-8 -left-4">02</span>
+                    <div class="pt-16">
+                        <h4 class="text-xl font-bold mb-2">Налаштування бота</h4>
+                        <p class="text-gray-400 text-sm">Створюємо інтерфейс для персоналу та налаштовуємо скрипти. (2-3 дні)</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative z-10">
+                    <span class="step-number absolute -top-8 -left-4">03</span>
+                    <div class="pt-16">
+                        <h4 class="text-xl font-bold mb-2">Інтеграція API</h4>
+                        <p class="text-gray-400 text-sm">Підключаємо Вчасно для автоматичного контролю актів. (3-4 дні)</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="relative z-10">
+                    <span class="step-number absolute -top-8 -left-4">04</span>
+                    <div class="pt-16">
+                        <h4 class="text-xl font-bold mb-2">Тест та запуск</h4>
+                        <p class="text-gray-400 text-sm">Перша подача показників у реальному часі та навчання. (2 дні)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Grid -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <img src="https://placehold.co/600x400/1e3a8a/ffffff?text=VCHASNO+Dashboard" alt="Dashboard Preview" class="rounded-3xl shadow-2xl">
+                <div>
+                    <h2 class="text-3xl font-bold mb-8">Швидкі перемоги для бізнесу</h2>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold">Через 2 дні</h5>
+                                <p class="text-sm text-gray-600">Співробітник починає вносити дані в Telegram замість записів у блокнот.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold">Через 7 днів</h5>
+                                <p class="text-sm text-gray-600">Автоматична перевірка всіх боргів та переплат у кабінетах за минулі періоди.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold">У перше вікно (1-5 число)</h5>
+                                <p class="text-sm text-gray-600">Гарантоване отримання підтвердження подачі показників без стресу для бухгалтера.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Інвестиція в стабільність</h2>
+                <p class="text-gray-600">Вартість впровадження окупається за перший же місяць у разі уникнення однієї помилки в подачі.</p>
+            </div>
+            <div class="max-w-lg mx-auto">
+                <div class="bg-white border-2 border-primary rounded-3xl p-8 relative shadow-2xl">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                        Рекомендовано
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">GasControl Box</h3>
+                    <div class="flex items-baseline mb-6">
+                        <span class="text-4xl font-black">43,500</span>
+                        <span class="text-xl font-bold ml-2">грн</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm">
+                            <i class="fa-solid fa-circle-check text-secondary"></i> Налаштування Telegram-бота
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i class="fa-solid fa-circle-check text-secondary"></i> Інтеграція з API Gazseti/104.ua
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i class="fa-solid fa-circle-check text-secondary"></i> Модуль звірки актів у «Вчасно»
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i class="fa-solid fa-circle-check text-secondary"></i> Технічна гарантія (1 міс. підтримки)
+                        </li>
+                    </ul>
+                    <a href="#contact-form" class="block text-center bg-primary text-white py-4 rounded-xl font-bold hover:bg-blue-800 transition">
+                        Замовити впровадження
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Form Section -->
+    <section id="contact-form" class="py-24 bg-gray-50 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-1/3 bg-primary p-10 text-white flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-6">Замовте аудит кабінетів</h2>
+                        <p class="text-blue-100 text-sm leading-relaxed mb-8">
+                            Готові припинити безглузді переплати? Ми налаштуємо вашу систему за 10 днів.
+                        </p>
+                    </div>
+                    <div class="space-y-4 text-sm opacity-80">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>Дані зашифровані</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-user-check"></i>
+                            <span>Персональний менеджер</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-2/3 p-10">
+                    <form id="leadForm" action="?" method="POST" class="space-y-6">
+                        <input type="hidden" name="pageid" id="pageidInput">
+                        <input type="hidden" name="source_info" value="avtomatizatsiya_biznesu">
+
+                        <!-- Contacts Group -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Ім'я *</label>
+                                <input type="text" name="name" required placeholder="Олександр" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Email *</label>
+                                <input type="email" name="email" required placeholder="alex@company.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Телефон *</label>
+                                <input type="tel" name="phone" id="phoneInput" required placeholder="380XXXXXXXXX" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Telegram / Viber</label>
+                                <input type="text" name="telegram" placeholder="@username" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                            </div>
+                        </div>
+
+                        <!-- Company Group -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Назва компанії</label>
+                                <input type="text" name="company" placeholder="ТОВ Назва" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Сайт компанії (URL)</label>
+                                <input type="url" name="website" placeholder="https://example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition">
+                            </div>
+                        </div>
+
+                        <!-- Project Details Group -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Послуга *</label>
+                                <select name="service" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition bg-white">
+                                    <option value="">Оберіть послугу</option>
+                                    <option value="audit">Аудит кабінетів та боргів</option>
+                                    <option value="bot_integration">Впровадження Telegram-бота</option>
+                                    <option value="vchasno_sync">Синхронізація з Вчасно</option>
+                                    <option value="full_package">Повний пакет (Box)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Орієнтовний бюджет</label>
+                                <select name="budget" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition bg-white">
+                                    <option value="">Бюджет</option>
+                                    <option value="35k-45k">35,000 - 45,000 грн</option>
+                                    <option value="45k-55k">45,000 - 55,000 грн</option>
+                                    <option value="custom">Індивідуальний розрахунок</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Ваше завдання / Коментар</label>
+                            <textarea name="task" rows="3" placeholder="Опишіть вашу ситуацію (кількість лічильників, поточні проблеми)..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition"></textarea>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-6">
+                            <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            <button type="submit" class="w-full bg-secondary text-white py-4 rounded-xl font-bold text-xl hover:shadow-xl hover:bg-emerald-600 transition duration-300">
+                                Відправити заявку
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-3xl font-bold text-center mb-12">Популярні запитання</h2>
+            <div class="space-y-4">
+                <details class="group bg-gray-50 p-6 rounded-2xl transition-all duration-300" open>
+                    <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-gray-800">
+                        Чи це безпечно для наших даних?
+                        <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600 text-sm">Так. Ми працюємо виключно з даними споживання через офіційні API або захищені токени доступу. Ми не маємо доступу до ваших фінансових рахунків чи можливості здійснювати транзакції.</p>
+                </details>
+                <details class="group bg-gray-50 p-6 rounded-2xl transition-all duration-300">
+                    <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-gray-800">
+                        Що якщо інтерфейс Gazseti зміниться?
+                        <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600 text-sm">Наші скрипти включають моніторинг помилок. Якщо структура сайту постачальника змінюється, ми оновлюємо код протягом 24 годин у межах технічної підтримки.</p>
+                </details>
+                <details class="group bg-gray-50 p-6 rounded-2xl transition-all duration-300">
+                    <summary class="list-none flex justify-between items-center cursor-pointer font-bold text-gray-800">
+                        Як бути, якщо на об'єкті немає інтернету?
+                        <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600 text-sm">Бот може зберігати чернетки. Працівник робить фото, а відправляє його, коли з'являється стабільний зв'язок або через звичайний мобільний інтернет (потрібно мінімальна швидкість).</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO Text Block -->
+    <section class="py-12 border-t border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto prose prose-sm text-gray-500">
+                <p>Автоматизація подачі показників газу для підприємств — це не розкіш, а необхідність для HoReCa та виробництва в Україні. Використовуючи сучасні рішення для особистого кабінету газмережі, ви мінімізуєте ризик людської помилки. Наш сервіс допомагає уникнути розрахункових нарахувань за газ, забезпечуючи точний контроль споживання газу підприємством та автоматичну звірку документів у системі Вчасно.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div class="flex flex-col items-center md:items-start">
+                    <span class="text-3xl font-black tracking-tighter mb-2">VCHASNO</span>
+                    <span class="text-xs uppercase tracking-widest text-gray-400">Вчасно розпочати — вчасно масштабувати</span>
+                </div>
+                <div class="flex gap-8 text-sm font-medium text-gray-400">
+                    <a href="pp.html" class="hover:text-white transition">Політика Конфіденційності</a>
+                    <a href="rules.html" class="hover:text-white transition">Умови Надання Послуг</a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+                &copy; 2025 VCHASNO (GasControl-UA). Всі права захищені.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Generate Unique ID
+        const pageidInput = document.getElementById('pageidInput');
+        if (pageidInput) {
+            pageidInput.value = ([1e7]+-1e3+-4e3+-8e2+-1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+
+        // 2. Phone Input Mask & Validation
+        const phoneInput = document.getElementById('phoneInput');
+        phoneInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 12);
+        });
+
+        // 3. Form Submission
+        const form = document.getElementById('leadForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // ReCAPTCHA validation
+            const captchaResponse = grecaptcha.getResponse();
+            if (!captchaResponse) {
+                showToast('error', 'Будь ласка, пройдіть капчу');
+                return;
+            }
+
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+            const formData = new FormData(this);
+            
+            // Clean phone number
+            const rawPhone = formData.get('phone').replace(/\D/g, '');
+            formData.set('phone', rawPhone);
+
+            const params = new URLSearchParams(formData);
+            if (!params.has('g-recaptcha-response')) {
+                params.append('g-recaptcha-response', captchaResponse);
+            }
+
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+            fetch(`${scriptURL}?${params.toString()}`, {
+                method: 'GET',
+                mode: 'cors'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200 || (data.result && data.result.includes('Success'))) {
+                    showToast('success', 'Дякуємо! Заявка отримана. Ми зв’яжемося з вами протягом 30 хвилин.');
+                    window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                    this.reset();
+                    grecaptcha.reset(); 
+                } else {
+                    showToast('error', 'Помилка: ' + (data.result || 'Невідома помилка'));
+                }
+            })
+            .catch(err => {
+                console.error('Fetch error:', err);
+                showToast('error', 'Сталася помилка при відправці. Спробуйте ще раз або напишіть нам у месенджери.');
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerText = originalText;
+            });
+        });
+
+        function showToast(type, message) {
+            Toastify({
+                text: message,
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: type === 'success' ? "#10b981" : "#ef4444",
+                    borderRadius: "12px",
+                    fontWeight: "600",
+                    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
+                }
+            }).showToast();
+        }
+    });
+    </script>
+</body>
+</html>

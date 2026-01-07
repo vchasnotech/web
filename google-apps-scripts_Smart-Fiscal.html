@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автоматизація ПРРО: Чеки з Monobank у Google Sheets за 1 секунду — Smart-Fiscal Bridge</title>
+    <meta name="description" content="Забудьте про ручне введення чеків! Автоматична інтеграція Monobank/Privat24 з Checkbox та Вчасно.Каса через Google Таблиці. Впровадження за 7 днів. Захистіть бізнес від штрафів ДПС.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', // Dark Blue
+                        secondary: '#10b981', // Mint Green
+                        accent: '#334155',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "VCHASNO Smart-Fiscal Bridge",
+      "description": "Автоматична фіскалізація оплат з банку прямо у вашій Google Таблиці через Checkbox або Вчасно.Каса.",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "areaServed": "UA",
+      "offers": {
+        "@type": "Offer",
+        "price": "По запиту",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+
+    <style>
+        .step-number {
+            -webkit-text-stroke: 1px rgba(16, 185, 129, 0.2);
+            color: transparent;
+            font-size: 8rem;
+            line-height: 1;
+        }
+        input:invalid {
+            border-color: #ef4444;
+        }
+        .bg-mint-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-primary tracking-tighter">VCHASNO</span>
+                <span class="text-[10px] uppercase tracking-widest text-secondary font-bold">Вчасно розпочати — вчасно масштабувати</span>
+            </div>
+            <nav class="hidden md:flex space-x-8 font-medium text-sm">
+                <a href="#problems" class="hover:text-secondary transition">Проблема</a>
+                <a href="#solution" class="hover:text-secondary transition">Рішення</a>
+                <a href="#process" class="hover:text-secondary transition">Як це працює</a>
+                <a href="#pricing" class="hover:text-secondary transition">Вартість</a>
+            </nav>
+            <a href="#lead-form" class="bg-secondary text-white px-5 py-2 rounded-lg font-bold text-sm hover:shadow-lg transition">Консультація</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-primary text-white overflow-hidden relative">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <span class="inline-block px-3 py-1 bg-secondary/20 text-secondary rounded-full text-xs font-bold mb-4 uppercase tracking-widest">Smart-Fiscal Bridge</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                        Автоматична фіскалізація оплат з банку прямо у вашій <span class="text-secondary">Google Таблиці</span>
+                    </h1>
+                    <p class="text-lg text-slate-300 mb-8 max-w-lg">
+                        Чеки з Monobank у Checkbox за 1 секунду. Позбудьтеся ручного введення та ризику штрафів за ціною, нижчою за один середній штраф ДПС.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#lead-form" class="bg-secondary hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold text-center transition transform hover:scale-105">
+                            Забронювати безкоштовний аудит
+                        </a>
+                        <div class="flex items-center gap-3 px-4">
+                            <div class="flex -space-x-2">
+                                <img src="https://placehold.co/40x40/10b981/ffffff?text=U1" class="w-10 h-10 rounded-full border-2 border-primary" alt="User">
+                                <img src="https://placehold.co/40x40/10b981/ffffff?text=U2" class="w-10 h-10 rounded-full border-2 border-primary" alt="User">
+                            </div>
+                            <span class="text-xs text-slate-400">Залишилось 3 місця на цей тиждень</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="bg-slate-800 p-4 rounded-2xl shadow-2xl border border-slate-700">
+                        <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="text-xs text-slate-500 ml-2">Google Sheets x Monobank x Checkbox</span>
+                        </div>
+                        <img src="https://placehold.co/600x400/1e293b/ffffff?text=Автоматичний+реєстр+чеків+VCHASNO" alt="Dashboard Preview" class="rounded-lg w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative bg -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-secondary/5 blur-[120px] -z-0"></div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problems" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Чому ручне введення чеків вбиває ваш бізнес сьогодні?</h2>
+                <p class="text-slate-600 italic">ДПС поновила масові перевірки. Помилка менеджера тепер коштує надто дорого.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 border border-slate-100 rounded-2xl bg-slate-50 hover:shadow-xl transition">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        <i class="fa-solid fa-scale-unbalanced"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Штрафи 100-150%</h3>
+                    <p class="text-slate-600">Кожна пропущена оплата або чек, виданий невчасно — це прямий ризик отримати величезний штраф від податкової.</p>
+                </div>
+                <div class="p-8 border border-slate-100 rounded-2xl bg-slate-50 hover:shadow-xl transition">
+                    <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">2-3 години рутини</h3>
+                    <p class="text-slate-600">Ваш менеджер витрачає час на копіювання цифр замість того, щоб дотискати продажі та спілкуватися з клієнтами.</p>
+                </div>
+                <div class="p-8 border border-slate-100 rounded-2xl bg-slate-50 hover:shadow-xl transition">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Людський фактор</h3>
+                    <p class="text-slate-600">Помилка в одну цифру в сумі або артикулі робить чек недійсним і створює проблеми в обліку.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="py-20 bg-slate-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Smart-Fiscal Bridge: Ваш автоматичний бухгалтер</h2>
+                    <p class="text-slate-400 mb-6 text-lg">Ми впроваджуємо скрипт на базі Google Apps Script, який з’єднує ваші банківські рахунки з ПРРО через Google Таблиці.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-secondary mt-1"></i>
+                            <span>Автоматичний імпорт виписок Monobank / Privat24</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-secondary mt-1"></i>
+                            <span>Валідація замовлення в Google Sheets</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-secondary mt-1"></i>
+                            <span>Миттєва генерація чека в Checkbox або Вчасно.Каса</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-secondary mt-1"></i>
+                            <span>Посилання на чек автоматично повертається в таблицю</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-6 rounded-2xl text-center border border-slate-700">
+                        <div class="text-3xl font-bold text-secondary mb-2">1 сек</div>
+                        <div class="text-sm text-slate-400">на створення чека</div>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-2xl text-center border border-slate-700">
+                        <div class="text-3xl font-bold text-secondary mb-2">0 грн</div>
+                        <div class="text-sm text-slate-400">абонплати за софт</div>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-2xl text-center border border-slate-700">
+                        <div class="text-3xl font-bold text-secondary mb-2">100%</div>
+                        <div class="text-sm text-slate-400">захист від штрафів</div>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-2xl text-center border border-slate-700">
+                        <div class="text-3xl font-bold text-secondary mb-2">7 днів</div>
+                        <div class="text-sm text-slate-400">термін впровадження</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works (Process) -->
+    <section id="process" class="py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Як працює система за 3 кроки</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                <!-- Step 1 -->
+                <div class="relative z-10">
+                    <span class="step-number absolute -top-12 -left-4 z-0 opacity-10 font-black">01</span>
+                    <div class="relative z-10 pt-8">
+                        <div class="w-16 h-16 bg-mint-gradient rounded-full flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-emerald-200">
+                            <i class="fa-solid fa-university"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Оплата в банку</h3>
+                        <p class="text-slate-600">Клієнт оплачує товар. Скрипт миттєво отримує дані через API Monobank або Privat24 Business.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative z-10">
+                    <span class="step-number absolute -top-12 -left-4 z-0 opacity-10 font-black">02</span>
+                    <div class="relative z-10 pt-8">
+                        <div class="w-16 h-16 bg-mint-gradient rounded-full flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-emerald-200">
+                            <i class="fa-solid fa-table-list"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Мапінг у Таблиці</h3>
+                        <p class="text-slate-600">Система знаходить відповідне замовлення в Google Sheets, перевіряє суму та наявність товару.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative z-10">
+                    <span class="step-number absolute -top-12 -left-4 z-0 opacity-10 font-black">03</span>
+                    <div class="relative z-10 pt-8">
+                        <div class="w-16 h-16 bg-mint-gradient rounded-full flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-emerald-200">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Фіскалізація</h3>
+                        <p class="text-slate-600">Дані йдуть у ПРРО (Checkbox/Вчасно). Посилання на фіскальний чек з’являється прямо у рядку замовлення.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Вартість впровадження</h2>
+                <p class="text-slate-600">Інвестиція, яка окупається з першим попередженим штрафом.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Basic -->
+                <div class="bg-white p-10 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-2">Smart-Fiscal Starter</h3>
+                        <div class="text-4xl font-black text-primary">28,500 <span class="text-lg font-normal text-slate-500">грн</span></div>
+                    </div>
+                    <ul class="space-y-4 mb-10 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> 1 Банківський рахунок</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> 1 ПРРО (Checkbox / Вчасно)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> Налаштування стандартної таблиці</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> Інструкція для персоналу</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> 7 днів техпідтримки</li>
+                    </ul>
+                    <a href="#lead-form" class="block text-center py-4 bg-slate-100 hover:bg-slate-200 text-primary font-bold rounded-xl transition">Обрати пакет</a>
+                </div>
+                <!-- Advanced -->
+                <div class="bg-primary p-10 rounded-3xl border border-primary shadow-xl relative overflow-hidden text-white">
+                    <div class="absolute top-4 right-4 bg-secondary text-white text-[10px] px-2 py-1 rounded font-bold uppercase">Популярно</div>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-2">Advanced Business</h3>
+                        <div class="text-4xl font-black text-secondary">45,000 <span class="text-lg font-normal text-slate-400">грн</span></div>
+                    </div>
+                    <ul class="space-y-4 mb-10 text-sm text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> Кілька ФОП та рахунків</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> Складна логіка розподілу платежів</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> Кастомні звіти про прибуток</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> Сповіщення про помилки в Telegram</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-secondary"></i> 14 днів техпідтримки</li>
+                    </ul>
+                    <a href="#lead-form" class="block text-center py-4 bg-secondary hover:bg-emerald-500 text-white font-bold rounded-xl transition">Обрати пакет</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl font-bold text-center mb-12">Поширені запитання</h2>
+            <div class="space-y-6">
+                <div class="p-6 border border-slate-200 rounded-xl">
+                    <h3 class="font-bold mb-2">Чи це безпечно? Де зберігаються мої ключі API?</h3>
+                    <p class="text-slate-600 text-sm">Всі ключі зберігаються виключно у властивостях вашого скрипта в Google-акаунті. Ми не маємо доступу до ваших грошей, скрипт працює лише на вивантаження виписок та передачу даних у ПРРО.</p>
+                </div>
+                <div class="p-6 border border-slate-200 rounded-xl">
+                    <h3 class="font-bold mb-2">Чи потрібно платити щомісяця?</h3>
+                    <p class="text-slate-600 text-sm">Ні. Ви платите один раз за налаштування системи. Ви оплачуєте лише стандартні тарифи самих сервісів (Checkbox/Вчасно), якщо вони у вас платні.</p>
+                </div>
+                <div class="p-6 border border-slate-200 rounded-xl">
+                    <h3 class="font-bold mb-2">А якщо банк змінить API?</h3>
+                    <p class="text-slate-600 text-sm">Ми будуємо систему на офіційних API, які стабільні роками. У разі глобальних змін ми пропонуємо пакети підтримки для швидкого оновлення скрипта.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Form Section -->
+    <section id="lead-form" class="py-20 bg-primary relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-2/5 bg-slate-50 p-10 border-r border-slate-100">
+                    <h2 class="text-3xl font-black mb-6 text-primary">Готові автоматизувати касу?</h2>
+                    <p class="text-slate-600 mb-8">Залиште заявку на безкоштовний аудит вашої таблиці. Ми проаналізуємо вашу структуру та запропонуємо найкращий варіант інтеграції.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-secondary/10 text-secondary rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <span class="text-sm font-medium">100% Конфіденційність</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-secondary/10 text-secondary rounded-full flex items-center justify-center">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <span class="text-sm font-medium">Відповідь протягом 30 хвилин</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-3/5 p-10">
+                    <form id="leadForm" action="#" method="POST" class="space-y-4">
+                        <input type="hidden" name="pageid" id="pageidInput">
+                        <input type="hidden" name="source_info" value="avtomatizatsiya_biznesu">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Ваше ім'я</label>
+                                <input type="text" name="name" required placeholder="Олександр" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Email</label>
+                                <input type="email" name="email" required placeholder="alex@business.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Телефон</label>
+                                <input type="tel" name="phone" id="phoneInput" required placeholder="380991234567" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Telegram / Viber</label>
+                                <input type="text" name="telegram" placeholder="@username" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Назва компанії</label>
+                                <input type="text" name="company" placeholder="My Shop Store" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Сайт (якщо є)</label>
+                                <input type="url" name="website" placeholder="https://..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Послуга</label>
+                                <select name="service" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition bg-white">
+                                    <option value="">Оберіть варіант</option>
+                                    <option value="starter">Smart-Fiscal Starter</option>
+                                    <option value="advanced">Advanced Business</option>
+                                    <option value="audit">Безкоштовний Аудит</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Бюджет</label>
+                                <select name="budget" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition bg-white">
+                                    <option value="">Оберіть бюджет</option>
+                                    <option value="25-35">25,000 - 35,000 грн</option>
+                                    <option value="35-50">35,000 - 50,000 грн</option>
+                                    <option value="50plus">50,000+ грн</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Ваше завдання / Коментар</label>
+                            <textarea name="task" placeholder="Опишіть вашу поточну систему або кількість замовлень..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-secondary outline-none transition h-24"></textarea>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-4">
+                            <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            <button type="submit" class="w-full bg-secondary hover:bg-emerald-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-200 transition transform hover:-translate-y-1">
+                                Надіслати запит на аудит
+                            </button>
+                            <p class="text-[10px] text-slate-400 text-center">Натискаючи кнопку, ви погоджуєтесь з політикою конфіденційності</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="flex flex-col mb-6 md:mb-0">
+                    <span class="text-2xl font-black text-white tracking-tighter">VCHASNO</span>
+                    <span class="text-[10px] uppercase tracking-widest text-secondary font-bold">Smart-Fiscal Solutions</span>
+                </div>
+                <div class="flex space-x-6 text-sm">
+                    <a href="pp.html" class="hover:text-white transition">Політика Конфіденційності</a>
+                    <a href="rules.html" class="hover:text-white transition">Умови Надання Послуг</a>
+                </div>
+            </div>
+            <div class="text-center text-xs border-t border-slate-800 pt-8">
+                &copy; 2025 VCHASNO. Всі права захищено. Автоматизація ПРРО на базі Google Apps Script.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Generate Unique ID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                pageidInput.value = ([1e7]+-1e3+-4e3+-8e2+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            // 2. Phone Masking Logic (Simple numeric only + length limit)
+            const phoneInput = document.getElementById('phoneInput');
+            phoneInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 12) value = value.slice(0, 12);
+                e.target.value = value;
+            });
+
+            // 3. Form Submission Logic
+            const form = document.getElementById('leadForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // reCAPTCHA Validation
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Будь ласка, пройдіть капчу');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+                // Data Prep
+                const formData = new FormData(this);
+                
+                // Clean Phone Number
+                const rawPhone = formData.get('phone').replace(/\D/g, '');
+                
+                const params = new URLSearchParams(formData);
+                params.set('phone', rawPhone); // Override with clean phone
+
+                if (!params.has('g-recaptcha-response')) {
+                    params.append('g-recaptcha-response', captchaResponse);
+                }
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                // Submission
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || (data.result && data.result.includes('Success'))) {
+                        showToast('success', 'Дякуємо! Заявка отримана. Ми зв’яжемося з вами найближчим часом.');
+                        window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                        this.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка: ' + (data.result || 'Спробуйте ще раз'));
+                    }
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    showToast('error', 'Сталася помилка при відправці. Перевірте з’єднання.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+
+            function showToast(type, message) {
+                Toastify({
+                    text: message,
+                    duration: 5000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: type === 'success' ? "#10b981" : "#ef4444",
+                    stopOnFocus: true,
+                }).showToast();
+            }
+        });
+    </script>
+</body>
+</html>

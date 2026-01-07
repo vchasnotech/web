@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Grant-Monitor: Автоматизація звітності по грантах еРобота | Захист від повернення гранту</title>
+    <meta name="description" content="Не ризикуйте грантовими коштами. Налаштуємо автоматичну систему контролю сплати податків та найму працівників для отримувачів грантів Власна справа, Переробка.">
+    <meta name="keywords" content="звітність по гранту еробота, контроль податків грант, автоматизація еробота, повернення гранту власна справа, як звітувати за грант, власна справа грант">
+    
+    <link rel="canonical" href="https://vchasno-grant.com.ua/">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Toastify JS CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Grant-Monitor від VCHASNO",
+      "description": "Автоматизація контролю зобов'язань за грантами еРобота. Контроль сплати податків та найму працівників через Google Sheets та Bank API.",
+      "areaServed": "UA",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "За запитом",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+
+    <style>
+        .progress-gradient {
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 100%);
+        }
+        .diia-blue { color: #0057b7; }
+        .diia-bg-blue { background-color: #0057b7; }
+        
+        input:invalid:not(:placeholder-shown) { border-color: #ef4444; }
+        
+        .bg-decorative-number {
+            position: absolute;
+            font-size: 10rem;
+            font-weight: 900;
+            color: rgba(0, 87, 183, 0.05);
+            line-height: 1;
+            z-index: 0;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <div class="text-2xl font-black tracking-tighter text-slate-900">VCHASNO</div>
+                <div class="text-[10px] uppercase tracking-widest text-blue-600 font-bold leading-none">Вчасно розпочати — вчасно масштабувати</div>
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-bold text-slate-600 uppercase tracking-tight">
+                <a href="#problem" class="hover:text-blue-600 transition">Ризики</a>
+                <a href="#solution" class="hover:text-blue-600 transition">Рішення</a>
+                <a href="#how-it-works" class="hover:text-blue-600 transition">Процес</a>
+            </nav>
+            <a href="#form-section" class="bg-blue-600 text-white px-5 py-2.5 rounded shadow-lg shadow-blue-200 font-bold text-sm hover:bg-blue-700 transition">
+                Дізнатись вартість
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-white pt-16 pb-24 border-b border-slate-100 relative overflow-hidden">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-4xl">
+                    <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1 rounded-full text-xs font-bold mb-8 uppercase tracking-widest">
+                        <i class="fa-solid fa-circle-check"></i> Захист грантів «еРобота»
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black leading-[1.1] mb-8">
+                        Не повертайте <span class="text-blue-600">250 000 грн</span> державі: <br>
+                        Автоматизуйте контроль за грантом та спіть спокійно
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl leading-relaxed">
+                        Державна допомога не повинна стати вашим боргом. Отримайте систему в Google Sheets, яка 24/7 моніторить виконання умов гранту по податках та кадрах.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#form-section" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-200 text-center">
+                            Дізнатись вартість для мого гранту
+                        </a>
+                        <div class="flex items-center gap-4 px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl">
+                            <i class="fa-solid fa-calculator text-2xl text-blue-600"></i>
+                            <span class="text-sm font-medium text-slate-500">Автоматична звірка з Bank API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Decorative Dashboard Element -->
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 opacity-10 hidden lg:block">
+                <i class="fa-solid fa-chart-pie text-[30rem]"></i>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section id="problem" class="py-24 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4">Що ви втрачаєте, контролюючи грант «на око»?</h2>
+                    <p class="text-slate-500 text-lg">Будь-яка помилка у звітності може коштувати вам повної суми гранту.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative group">
+                        <div class="w-14 h-14 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition">
+                            <i class="fa-solid fa-money-bill-transfer"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Ризик повернення грошей</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Недоплатили 100 грн податку або запізнились з наймом на тиждень? Держава може зажадати повернення всієї суми (від 250к до 8 млн).</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative group">
+                        <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition">
+                            <i class="fa-solid fa-eye-slash"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Управління наосліп</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Ви не знаєте точно, чи вистачає сплачених податків до кінця кварталу, і живете в постійному стресі перед черговим звітом.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative group">
+                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Втрата часу на розрахунки</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Ваш бухгалтер витрачає години на ручні підрахунки сум ЄСВ та ПДФО замість того, щоб займатися фінансовим плануванням.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section id="solution" class="py-24 bg-white border-y border-slate-200">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="relative">
+                        <div class="bg-slate-900 p-4 rounded-3xl shadow-2xl border border-slate-800">
+                            <!-- Visual representation of the dashboard -->
+                            <div class="bg-white rounded-2xl overflow-hidden">
+                                <div class="bg-slate-100 px-4 py-2 flex items-center gap-2 border-b">
+                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                    <div class="text-[10px] font-bold text-slate-400 ml-2">GRANT-MONITOR DASHBOARD</div>
+                                </div>
+                                <div class="p-6 space-y-6">
+                                    <div>
+                                        <div class="flex justify-between text-xs font-bold mb-2"><span>Сплачено податків (KPI)</span><span>74%</span></div>
+                                        <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden"><div class="h-full progress-gradient" style="width: 74%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs font-bold mb-2"><span>Найм персоналу (2/2)</span><span class="text-green-600">ВИКОНАНО</span></div>
+                                        <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden"><div class="h-full progress-gradient" style="width: 100%"></div></div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                            <div class="text-[10px] uppercase font-bold text-blue-400">Наступний звіт</div>
+                                            <div class="text-sm font-black text-blue-800">Через 12 днів</div>
+                                        </div>
+                                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                                            <div class="text-[10px] uppercase font-bold text-slate-400">Прогноз повернення</div>
+                                            <div class="text-sm font-black text-slate-800">Грудень 2026</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 hidden md:block">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-shield-check"></i>
+                                </div>
+                                <div>
+                                    <div class="text-lg font-black leading-none">100% Спокій</div>
+                                    <div class="text-xs font-bold text-slate-400 uppercase">Дані захищено NDA</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-black mb-8 leading-tight">Ваша «страховка» від повернення грантових коштів</h2>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Ми впроваджуємо систему у ваш Google Workspace. Вона автоматично збирає дані з банку та візуалізує прогрес виконання вашого грантового договору.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 mt-1"><i class="fa-solid fa-check text-white text-[10px]"></i></div>
+                                <div><strong class="text-slate-900 block">Bank API Integration:</strong> Автоматичний облік податкових платежів з Monobank або Privat24.</div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 mt-1"><i class="fa-solid fa-check text-white text-[10px]"></i></div>
+                                <div><strong class="text-slate-900 block">Smart Reminders:</strong> Нагадування в Google Calendar про терміни звітів та дедлайни по найму.</div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 mt-1"><i class="fa-solid fa-check text-white text-[10px]"></i></div>
+                                <div><strong class="text-slate-900 block">KPI Dashboard:</strong> Наочний прогрес-бар, що показує, скільки ще податків залишилось сплатити.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="how-it-works" class="py-24 bg-white overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tight">Процес впровадження</h2>
+                    <p class="text-slate-500">Від вашої заявки до повного контролю за грантом — за 10 днів.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                    <!-- Step 1 -->
+                    <div class="relative p-6">
+                        <div class="bg-decorative-number">1</div>
+                        <div class="relative z-10 pt-10">
+                            <h4 class="font-bold text-xl mb-3">Аудит (20 хв)</h4>
+                            <p class="text-slate-600 text-sm">Вивчаємо ваш договір та умови гранту. Фіксуємо ціну.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative p-6">
+                        <div class="bg-decorative-number">2</div>
+                        <div class="relative z-10 pt-10">
+                            <h4 class="font-bold text-xl mb-3">Доступи</h4>
+                            <p class="text-slate-600 text-sm">Ви генеруєте API-ключ банку за нашою інструкцією.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative p-6">
+                        <div class="bg-decorative-number">3</div>
+                        <div class="relative z-10 pt-10">
+                            <h4 class="font-bold text-xl mb-3">Налаштування</h4>
+                            <p class="text-slate-600 text-sm">Розгортаємо дашборд та налаштовуємо логіку розрахунків.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="relative p-6">
+                        <div class="bg-decorative-number">4</div>
+                        <div class="relative z-10 pt-10">
+                            <h4 class="font-bold text-xl mb-3">Навчання</h4>
+                            <p class="text-slate-600 text-sm">Демонструємо роботу та вчимо вас або бухгалтера.</p>
+                        </div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="relative p-6">
+                        <div class="bg-decorative-number">5</div>
+                        <div class="relative z-10 pt-10">
+                            <h4 class="font-bold text-xl mb-3">Підтримка</h4>
+                            <p class="text-slate-600 text-sm">14 днів безкоштовно допомагаємо з будь-якими питаннями.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison / Pricing Section -->
+        <section id="pricing" class="py-24 bg-slate-900 text-white">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-black mb-8 leading-tight">Ціна вашого спокою</h2>
+                        <p class="text-slate-400 mb-12 text-lg">Вартість впровадження у 10-50 разів менша за суму, яку ви ризикуєте повернути державі через одну помилку.</p>
+                        
+                        <div class="flex items-center gap-6 mb-12 border-l-4 border-blue-600 pl-8">
+                            <div>
+                                <div class="text-xs text-slate-500 font-bold uppercase mb-1">Ваш ризик</div>
+                                <div class="text-4xl font-black text-red-500">250 000+ <span class="text-xl">грн</span></div>
+                            </div>
+                            <div class="text-slate-700 text-2xl font-black">vs</div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-bold uppercase mb-1">Ціна Grant-Monitor</div>
+                                <div class="text-4xl font-black text-blue-400">40 700 <span class="text-xl">грн</span></div>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-4 text-slate-300 text-sm">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-blue-500"></i> Разова оплата — без абонплати</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-blue-500"></i> Офіційний договір через ФОП</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-blue-500"></i> Система залишається у вас назавжди</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-[2rem] p-10 text-slate-900 shadow-2xl relative overflow-hidden">
+                        <h3 class="text-2xl font-bold mb-6">Замовити розрахунок</h3>
+                        <form id="leadForm" class="space-y-5">
+                            <input type="hidden" name="pageid" id="pageidInput">
+                            <input type="hidden" name="source_info" value="grant_monitor_erobota">
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Контакти</label>
+                                    <input type="text" name="name" required placeholder="Ваше ім'я" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-0">Email</label>
+                                    <input type="email" name="email" required placeholder="Ваш Email" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div class="space-y-1">
+                                    <input type="tel" name="phone" id="phoneInput" required placeholder="Телефон (380...)" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                                <div class="space-y-1">
+                                    <input type="text" name="telegram" placeholder="Telegram / Viber" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                            </div>
+
+                            <div class="space-y-1 pt-4 border-t border-slate-100">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Деталі гранту</label>
+                                <select name="service" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none text-sm appearance-none cursor-pointer transition">
+                                    <option value="">Оберіть програму</option>
+                                    <option value="Власна Справа">Власна Справа (до 250к)</option>
+                                    <option value="Грант для ветеранів">Грант для ветеранів</option>
+                                    <option value="Грант на переробку">Грант на переробку (до 8 млн)</option>
+                                    <option value="Інша">Інша програма</option>
+                                </select>
+                            </div>
+
+                            <!-- Standard Fields Hidden or Fixed -->
+                            <input type="hidden" name="company" value="Grant Receiver">
+                            <input type="hidden" name="website" value="N/A">
+                            <input type="hidden" name="budget" value="36-52k">
+                            <textarea name="task" hidden>Запит на налаштування системи моніторингу гранту</textarea>
+
+                            <div class="pt-2">
+                                <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            </div>
+
+                            <button type="submit" class="w-full bg-blue-600 text-white font-black py-4 rounded-xl hover:bg-blue-700 transition-all uppercase tracking-widest text-sm shadow-xl shadow-blue-100">
+                                Отримати розрахунок
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-24 bg-slate-50">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-tight">Часті питання</h2>
+                <div class="space-y-4">
+                    <details class="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm cursor-pointer transition hover:border-blue-400">
+                        <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                            Чи бачите ви дані про мої податки та зарплати?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-blue-600"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Ні. Система розгортається у вашому особистому Google Workspace. Ми підписуємо NDA на етапі впровадження. Після завершення робіт скрипт працює автономно в акаунті вашої компанії, і ми не маємо до нього доступу.</p>
+                    </details>
+                    <details class="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm cursor-pointer transition hover:border-blue-400">
+                        <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                            Чи може система сама подавати звіти в Дію?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-blue-600"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Ні. Дія не має відкритого API для подання грантової звітності сторонніми сервісами. Система Grant-Monitor готує всі необхідні цифри та перевіряє їх на відповідність умовам, щоб ви могли просто скопіювати їх у звіт за 2 хвилини без страху помилитись.</p>
+                    </details>
+                    <details class="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm cursor-pointer transition hover:border-blue-400">
+                        <summary class="flex justify-between items-center font-bold text-slate-800 list-none">
+                            Що буде, якщо я не встигну сплатити податки?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-blue-600"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Система завчасно (за 14 та 7 днів) надішле вам та вашому бухгалтеру сповіщення про критичний стан виконання KPI, щоб ви встигли внести необхідну суму до кінця звітного періоду.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col items-center mb-10">
+                <div class="text-3xl font-black text-white mb-2 tracking-tighter">VCHASNO</div>
+                <div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Вчасно розпочати — вчасно масштабувати</div>
+            </div>
+            <div class="flex justify-center gap-8 mb-10 text-xs font-bold uppercase tracking-widest">
+                <a href="pp.html" class="hover:text-blue-400 transition">Політика Конфіденційності</a>
+                <a href="rules.html" class="hover:text-blue-400 transition">Умови Надання Послуг</a>
+            </div>
+            <div class="text-[10px] text-slate-600 font-medium">
+                &copy; 2026 VCHASNO. Професійна автоматизація звітності на базі Google Apps Script.<br>
+                Grant-Monitor не є юридичною або бухгалтерською консультацією. Фінальна відповідальність за виконання умов гранту лежить на грантоотримувачі.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Generate Unique Page ID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                pageidInput.value = ([1e7]+-1e3+-4e3+-8e2+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            // 2. Phone Masking Logic (Simplistic but robust)
+            const phoneInput = document.getElementById('phoneInput');
+            phoneInput.addEventListener('input', function(e) {
+                let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+                if (!x) return;
+                e.target.value = !x[2] ? x[1] : (x[1] ? '+' + x[1] : '') + (x[2] ? ' (' + x[2] + ') ' : '') + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+            });
+
+            // 3. Form Submission Logic
+            document.getElementById('leadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Recaptcha validation
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Будь ласка, пройдіть капчу');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+                // Data preparation
+                const formData = new FormData(this);
+                const rawPhone = formData.get('phone').replace(/\D/g, ''); 
+                
+                const params = new URLSearchParams(formData);
+                params.set('phone', rawPhone);
+                
+                if (!params.has('g-recaptcha-response')) {
+                    params.append('g-recaptcha-response', captchaResponse);
+                }
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                // Fetch call
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || data.result.includes('Success')) {
+                        showToast('success', 'Дякуємо! Заявка отримана. Зв\'яжемось з вами скоро.');
+                        window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                        this.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка: ' + (data.result || 'Спробуйте пізніше'));
+                    }
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    showToast('error', 'Сталася помилка при відправці. Перевірте з\'єднання.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+
+            function showToast(type, message) {
+                Toastify({
+                    text: message,
+                    duration: 5000,
+                    gravity: "bottom",
+                    position: "center",
+                    style: {
+                        background: type === 'success' ? "#16a34a" : "#dc2626",
+                        borderRadius: "12px",
+                        boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)"
+                    }
+                }).showToast();
+            }
+        });
+    </script>
+</body>
+</html>
