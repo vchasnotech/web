@@ -2,285 +2,379 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
+    <loc>https://vchasno.tech/index.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://vchasno.tech/ai-closer-avtomatyzatsiia-prodazhiv-ta-rozrakhunkiv-24-7.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/ai-dispatcher-avtomatyzatsiia-zapysu-kliyentiv-ta-filtratsii-lidiv-24-7.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/ai-revenue-revival-povernit-kliientiv-ta-hroshi-z-vashoi-staroi-bazy.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/ai-supervisor-neironerezha-dlia-kontroliu-iakosti-vashykh-prodazhiv-24-7.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/ai-tax-guard-zakhystit-svii-biznes-vid-shtrafiv-za-nefiskalizatsiiu.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/avtomatychna-fiskalizatsiia-dlia-keycrm-salesdrive-checkbox.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/avtomatyzatsiia-tsin-dlia-e-commerce-zakhyst-marzhi-vid-kolyvan-kursu.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/bron-monitor-ai-systema-kontroliu-ta-avtomatyzatsii-broniuvannia-personalu.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/debt-recover-ai-povernit-svoi-hroshi-v-obih-avtomatychno.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/export-ai-bridge-masshtabuite-svii-biznes-na-ves-svit-bez-znannia-mov.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/finmon-risk-shield-zakhyst-vashoho-rakhunku-vid-blokuvan-banku-u-2026-rotsi.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/fiscal-sentry-avtomatychnyi-kontrol-ta-vydacha-chekiv-dlia-fop.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/grant-audit-ai-avtomatychna-zvitnist-dlia-otrymuvachiv-hrantiv.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/iban-reconciler-avtomatychna-zvirka-bankivskykh-oplat-u-google-sheets.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/lead-rescuer-avtomatyzatsiia-obrobky-lidiv-24-7-dlia-vashoho-biznesu.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/margin-sentry-ai-zupynit-prykhovani-zbytky-vashoho-internet-mahazynu.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/mil-shield-avtomatyzatsiia-viiskovoho-obliku-dlia-biznesu-zakhyst-vid-shtrafiv-ttsk.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/np-profit-booster-avtomatyzatsiia-lohistyky-ta-vidhukiv-dlia-mahazyniv.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/review-autopilot-ai-vykhid-u-top-1-google-maps-bez-vytrat-na-reklamu.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/supplier-sync-avtomatyzatsiia-onovlennia-tsin-ta-zalyshkiv-vid-postachalnykiv.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vchasno.tech/tender-ai-scout-znakhodte-milyonni-kontrakty-na-prozorro-avtomatychno.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://vchasno.tech/gas-ai-ahent-dlia-b2b-prodazhiv-avtomatyzatsiia-viber-ta-telegram.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-aml-shield-avtomatychna-perevirka-kontrahentiv-na-sanktsii-v-google-sheets.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatychna-zvirka-oplat-z-monobank-pryvat24-u-google-sheets-nalashtuvannia-za-3-dni.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatychnyi-kontrol-dokumentiv-vchasno-v-google-sheets-vprovadzhennia-za-5-dniv.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-dohovoriv-ta-rakhunkiv-vidpravka-u-vchasno-za-2-khvylyny.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-kontroliu-debitorky-intehratsiia-vchasno-bank.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-novoi-poshty-v-google-sheets-kontrol-povernen-ta-oplat.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-novoi-poshty-zmenshte-vytraty-na-povernennia-ta-zberihannia.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-podachi-pokaznykiv-hazu-dlia-biznesu.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-prro-checkbox-ta-monobank-zakhyst-vid-shtrafiv-dps-za-nefiskalizovani-iban-oplaty.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-prro-checkbox-vchasno-dlia-google-sheets-zakhyst-vid-shtrafiv-dps.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-prro-dlia-google-sheets-checkbox-vchasno-kasa.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-upravlinskoho-obliku-v-google-sheets-intehratsiia-monobank-privat24-dlia-fop.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-viiskovoho-obliku-2024-hotova-systema-dlia-tov-ta-fop-za-7-dniv.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-viiskovoho-obliku-2024-na-google-sheets-zakhyst-vid-shtrafiv-ttsk.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-avtomatyzatsiia-viiskovoho-obliku-unyknit-shtrafiv-ttsk-za-5-dniv.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-b2b-debt-control.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-bron-kontrol-avtomatyzatsiia-viiskovoho-obliku-ta-broniuvannia.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-bron-kontrol-avtomatyzatsiia-viiskovoho-obliku-u-google-sheets-unyknit-shtrafiv-ttsk.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-commercial-utility-billing.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-competitor-price-radar.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-currency-price-shield.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-ecom-autopilot.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-export-doc-automator.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-fuel-generator-control.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-grant-monitor-avtomatizatsiia-zvitnosti-po-hrantakh-erobota.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-hr-payroll-incentive.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-military-ledger-automator.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-multi-bank-pnl.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-np-bank-reconciliation.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-np-storage-saver.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-production-cost-tracker.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-retail-edi-connector.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-risk-monitor-opendatabot.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-sheeterp-avtomatyzatsiia-google-tablyts-checkbox-nova-poshta-monobank.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-shield-hr-avtomatyzatsiia-viiskovoho-obliku-zakhyst-vid-shtrafiv-ttsk-do-59-500-hrn.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-smart-procurement-system.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-smartprice-sync-avtomatyczne-onovlennia-tsin-ta-kontrol-marzhi-v-google-sheets.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-tender-hunter-prozorro.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/gas-vchasno-contract-automator.html</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://vchasno.tech/google-apps-scripts_Smart-Fiscal.html</loc>
     <lastmod>2026-01-07</lastmod>

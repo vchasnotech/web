@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Lead-Rescuer: Автоматизація обробки лідів 24/7 для вашого бізнесу</title>
+    <meta name="description" content="Не втрачайте клієнтів через затримку менеджерів. Автоматична фіксація лідів з Facebook та миттєве сповіщення в месенджери. Збільште конверсію відділу продажів вже сьогодні.">
+    <meta name="keywords" content="автоматизація facebook lead ads, обробка лідів google sheets, миттєва відповідь клієнту, інтеграція фейсбук з гугл таблицями, збільшити конверсію реклами">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Toastify JS CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "VCHASNO: Lead-Rescuer",
+      "description": "Автоматичний перехоплювач лідів 24/7 з Facebook Lead Ads до Google Sheets та Viber/SMS. Миттєва відповідь за 60 секунд.",
+      "provider": {
+        "@type": "Organization",
+        "name": "VCHASNO"
+      },
+      "areaServed": "UA",
+      "offers": {
+        "@type": "Offer",
+        "price": "По запиту"
+      }
+    }
+    </script>
+
+    <style>
+        .glow-blue { box-shadow: 0 0 20px rgba(37, 99, 235, 0.2); }
+        .flow-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
+        input:invalid:not(:placeholder-shown), select:invalid:not(:placeholder-shown) { border-color: #ef4444; }
+        .bg-tech { background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px; }
+        
+        /* Step decoration for PROCESS block */
+        .process-step { position: relative; }
+        .process-number { 
+            position: absolute; 
+            top: -20px; 
+            left: -10px; 
+            font-size: 5rem; 
+            font-weight: 900; 
+            color: rgba(255,255,255,0.05); 
+            z-index: 0;
+            line-height: 1;
+        }
+        .process-content { position: relative; z-index: 10; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased bg-tech">
+
+    <!-- Header -->
+    <header class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <div class="text-2xl font-black tracking-tighter text-white">VCHASNO</div>
+                <div class="text-[10px] uppercase tracking-widest text-blue-500 font-bold leading-none">Вчасно розпочати — вчасно масштабувати</div>
+            </div>
+            <a href="#form-section" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">
+                Замовити демо
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-20 pb-32 overflow-hidden">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-4xl">
+                    <div class="inline-flex items-center gap-2 bg-blue-600/20 text-blue-400 border border-blue-600/30 px-3 py-1 rounded text-xs font-bold mb-8 uppercase tracking-widest">
+                        <i class="fa-solid fa-bolt animate-pulse"></i> Відповідь кожному ліду < 60 секунд
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black leading-[1.1] mb-8 tracking-tight">
+                        Перестаньте зливати <span class="text-blue-500">50% бюджету</span>: Автоматичний перехоплювач лідів 24/7
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl leading-relaxed">
+                        Поки менеджер у тривозі, без світла або просто зайнятий — Lead-Rescuer миттєво «ловить» клієнта та пише йому у Viber. Система працює, поки ви спите.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#form-section" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-900/40 text-center">
+                            Замовити безкоштовну демонстрацію
+                        </a>
+                        <div class="flex items-center gap-4 px-6 py-4 bg-slate-800/50 border border-white/10 rounded-xl backdrop-blur-sm">
+                            <i class="fa-solid fa-chart-line text-2xl text-emerald-500"></i>
+                            <span class="text-sm font-medium text-slate-300 tracking-tight">+30% до конверсії з реклами</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Background Icon Decoration -->
+            <div class="absolute -right-20 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none hidden lg:block">
+                <i class="fa-solid fa-headset text-[40rem] text-blue-500"></i>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section id="problem" class="py-24 bg-slate-900/50 border-y border-white/5">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4 uppercase">Що ви втрачаєте кожну хвилину?</h2>
+                    <p class="text-slate-400 text-lg">Кожна хвилина затримки знижує шанси на продаж на 40%.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 flow-card rounded-2xl border border-white/5">
+                        <div class="w-14 h-14 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Злив бюджету</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Ціна ліда може бути 800 грн, але якщо йому не відповіли за 5 хвилин — ці гроші просто згоріли. Клієнт вже пішов до тих, хто швидший.</p>
+                    </div>
+                    <div class="p-8 flow-card rounded-2xl border border-white/5">
+                        <div class="w-14 h-14 bg-blue-500/10 text-blue-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                            <i class="fa-solid fa-battery-half"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Людський фактор</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Тривоги, вимкнення світла, вихідний або менеджер просто відійшов — клієнт не чекає. Він хоче відповідь тут і зараз.</p>
+                    </div>
+                    <div class="p-8 flow-card rounded-2xl border border-white/5">
+                        <div class="w-14 h-14 bg-orange-500/10 text-orange-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                            <i class="fa-solid fa-users-slash"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Холодні клієнти</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Поки менеджер дійде до ліда через 2 години, клієнт вже забув, що він залишав заявку, і розмовляє неохоче.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="how-it-works" class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tight">Як ми рятуємо ваші ліди</h2>
+                    <p class="text-slate-400 uppercase tracking-widest text-sm font-bold">Впровадження за 4 дні</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="process-step p-8 bg-slate-900 border border-white/10 rounded-2xl">
+                        <span class="process-number">1</span>
+                        <div class="process-content">
+                            <i class="fa-brands fa-facebook-f text-blue-500 text-3xl mb-4"></i>
+                            <h4 class="font-bold text-lg mb-2">Захоплення</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed">Скрипт миттєво отримує дані через Webhook одразу після кліку на форму у FB/Instagram.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="process-step p-8 bg-slate-900 border border-white/10 rounded-2xl">
+                        <span class="process-number">2</span>
+                        <div class="process-content">
+                            <i class="fa-solid fa-table text-emerald-500 text-3xl mb-4"></i>
+                            <h4 class="font-bold text-lg mb-2">Фіксація</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed">За 10 секунд лід заноситься в Google Sheets з усіма даними для контролю та аналітики.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="process-step p-8 bg-slate-900 border border-white/10 rounded-2xl">
+                        <span class="process-number">3</span>
+                        <div class="process-content">
+                            <i class="fa-solid fa-paper-plane text-blue-400 text-3xl mb-4"></i>
+                            <h4 class="font-bold text-lg mb-2">Контакт</h4>
+                            <p class="text-slate-400 text-xs leading-relaxed">Клієнт отримує перше ввічливе SMS або Viber-повідомлення: «Дякуємо, ми вже обробляємо...».</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="process-step p-8 bg-blue-600 rounded-2xl shadow-xl shadow-blue-900/20">
+                        <span class="process-number" style="color: rgba(255,255,255,0.1)">4</span>
+                        <div class="process-content">
+                            <i class="fa-brands fa-telegram text-white text-3xl mb-4"></i>
+                            <h4 class="font-bold text-lg mb-2 text-white">Сповіщення</h4>
+                            <p class="text-blue-100 text-xs leading-relaxed text-white">Менеджер миттєво отримує алерт у Telegram з прямим лінком на номер клієнта.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing / ROI Section -->
+        <section id="pricing" class="py-24 bg-slate-900/30 border-y border-white/5">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-black mb-8 leading-tight uppercase">Вартість автоматизації vs Збитки</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4 border-l-4 border-red-600 pl-6 py-2 bg-red-600/5">
+                                <div>
+                                    <div class="text-xs font-bold text-red-500 uppercase">Ваш ризик зараз</div>
+                                    <div class="text-3xl font-black text-white">50-70% бюджету «в пісок»</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 border-l-4 border-blue-600 pl-6 py-2 bg-blue-600/5">
+                                <div>
+                                    <div class="text-xs font-bold text-blue-400 uppercase">Інвестиція в Lead-Rescuer</div>
+                                    <div class="text-3xl font-black text-white">від 28 000 грн (разово)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="mt-10 space-y-4 text-sm text-slate-400">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-500"></i> Жодних щомісячних платежів за скрипт</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-500"></i> Офіційний договір ФОП + NDA</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-500"></i> 14 днів безкоштовної техпідтримки</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-3xl p-10 text-slate-900 shadow-2xl relative overflow-hidden">
+                        <h3 class="text-2xl font-black mb-8">Розрахунок економії</h3>
+                        <div class="space-y-6 mb-8">
+                            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                                <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Ваша вигода</div>
+                                <div class="text-3xl font-black text-blue-600">+30% до окупності</div>
+                                <div class="text-xs text-slate-500 mt-2 font-medium">Без збільшення бюджету на рекламу</div>
+                            </div>
+                        </div>
+                        <a href="#form-section" class="block w-full bg-blue-600 text-white text-center py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/40">Отримати пропозицію</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Form Section -->
+        <section id="form-section" class="py-24 relative">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto flex flex-col lg:flex-row bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/10">
+                    <div class="lg:w-2/5 p-12 lg:p-16 bg-blue-700 text-white flex flex-col justify-between relative overflow-hidden">
+                        <div>
+                            <h2 class="text-3xl font-black mb-8 leading-tight uppercase italic">Ваш конкурент відповість на цей лід швидше...</h2>
+                            <p class="text-blue-100 mb-10 leading-relaxed text-lg italic tracking-tight opacity-80">Поки ви читаєте цей текст, ще один клієнт охолов. Зупиніть втрату грошей прямо зараз.</p>
+                        </div>
+                        <div class="space-y-4 relative z-10">
+                            <div class="flex items-center gap-4 font-bold uppercase tracking-widest text-[10px]">
+                                <i class="fa-solid fa-shield-halved text-xl"></i> Дані залишаються у вас
+                            </div>
+                            <div class="flex items-center gap-4 font-bold uppercase tracking-widest text-[10px]">
+                                <i class="fa-solid fa-handshake text-xl"></i> Безкоштовне демо на ваших лідах
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-bolt absolute -right-10 -bottom-10 text-[20rem] text-white/10 pointer-events-none"></i>
+                    </div>
+                    <div class="lg:w-3/5 p-12 lg:p-16 bg-white">
+                        <h3 class="text-2xl font-black mb-8 text-slate-900">Заявка на консультацію</h3>
+                        <form id="leadForm" class="space-y-4 text-slate-900">
+                            <input type="hidden" name="pageid" id="pageidInput">
+                            <input type="hidden" name="source_info" value="avtomatizatsiya_fb_leads">
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Контакти</label>
+                                    <input type="text" name="name" required placeholder="Ім'я*" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-0">Email</label>
+                                    <input type="email" name="email" required placeholder="Email*" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="tel" name="phone" id="phoneInput" required placeholder="Телефон (380...)*" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                <input type="text" name="telegram" placeholder="Telegram / Viber" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Компанія</label>
+                                    <input type="text" name="company" placeholder="Назва компанії" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-0">Сайт</label>
+                                    <input type="url" name="website" placeholder="Сайт / Посилання" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                                <select name="service" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm appearance-none transition">
+                                    <option value="">Сфера бізнесу*</option>
+                                    <option value="Будівництво">Будівництво / Ремонт</option>
+                                    <option value="Освіта">Навчання / Курси</option>
+                                    <option value="Solar">Сонячні панелі / Енергія</option>
+                                    <option value="Legal">Юридичні послуги</option>
+                                    <option value="Інше">Інша сфера</option>
+                                </select>
+                                <select name="budget" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm appearance-none transition">
+                                    <option value="">Рекламний бюджет*</option>
+                                    <option value="20-50k">20 000 - 50 000 грн/міс</option>
+                                    <option value="50-100k">50 000 - 100 000 грн/міс</option>
+                                    <option value="100k+">Понад 100 000 грн/міс</option>
+                                </select>
+                            </div>
+
+                            <textarea name="task" rows="3" placeholder="Яку кількість лідів отримуєте і яка основна проблема з обробкою?" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none text-sm transition"></textarea>
+
+                            <div class="pt-2">
+                                <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            </div>
+
+                            <button type="submit" class="w-full bg-blue-600 text-white font-black py-4 rounded-xl hover:bg-blue-700 transition-all uppercase tracking-widest text-sm shadow-xl shadow-blue-500/20">
+                                Отримати безкоштовну консультацію
+                            </button>
+                            <p class="text-[9px] text-center text-slate-400 uppercase tracking-tight">Натискаючи на кнопку, ви погоджуєтесь з <a href="pp.html" class="underline">політикою конфіденційності</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-24 bg-slate-900/30">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-tight italic text-slate-400">Часті питання</h2>
+                <div class="space-y-4">
+                    <details class="group bg-slate-900 rounded-2xl p-6 border border-white/5 cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold list-none">
+                            Ви отримаєте доступ до мого рекламного кабінету?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-blue-500"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-400 text-sm leading-relaxed">Для налаштування Webhook нам потрібен тимчасовий доступ рівня «Аналітик» або допомога вашого таргетолога. Ми не керуємо бюджетами і не бачимо ваші креативи — лише отримуємо дані з форми лідів.</p>
+                    </details>
+                    <details class="group bg-slate-900 rounded-2xl p-6 border border-white/5 cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold list-none">
+                            Чи потрібно платити абонплату за скрипт?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-blue-500"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-400 text-sm leading-relaxed">Ні. Це разова оплата за впровадження. Ви платите лише за SMS-повідомлення або Viber-повідомлення безпосередньо провайдеру (напр. TurboSMS) згідно з їхніми тарифами.</p>
+                    </details>
+                    <details class="group bg-slate-900 rounded-2xl p-6 border border-white/5 cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold list-none">
+                            Які дані бачите ви?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-blue-500"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-400 text-sm leading-relaxed">Всі ліди потрапляють безпосередньо у ваш Google-акаунт. Ми підписуємо NDA, що гарантує нерозголошення будь-якої комерційної інформації, до якої ми маємо доступ під час налаштування.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 py-16 border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col items-center mb-10">
+                <div class="text-3xl font-black text-white mb-2 tracking-tighter uppercase italic">VCHASNO</div>
+                <div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Вчасно розпочати — вчасно масштабувати</div>
+            </div>
+            <div class="flex justify-center gap-8 mb-10 text-xs font-bold uppercase tracking-widest">
+                <a href="pp.html" class="hover:text-white transition">Політика Конфіденційності</a>
+                <a href="rules.html" class="hover:text-white transition">Умови Надання Послуг</a>
+            </div>
+            <div class="text-[10px] text-slate-600 font-medium">
+                &copy; 2026 VCHASNO. Професійна автоматизація відділів продажів на базі Google Apps Script.<br>
+                Lead-Rescuer не є CRM-системою, а є технічним інструментом миттєвої доставки та фіксації лідів.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Generate Unique Page ID (UUID)
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                pageidInput.value = ([1e7]+-1e3+-4e3+-8e2+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            // 2. Phone Input numeric validation
+            const phoneInput = document.getElementById('phoneInput');
+            phoneInput.addEventListener('input', (e) => {
+                let val = e.target.value.replace(/\D/g, '');
+                if (val.length > 12) val = val.slice(0, 12);
+                e.target.value = val;
+            });
+
+            // 3. Form Submission Logic
+            document.getElementById('leadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Будь ласка, пройдіть капчу');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'ВІДПРАВЛЯЄМО...';
+
+                const formData = new FormData(this);
+                const rawPhone = formData.get('phone').replace(/\D/g, ''); 
+                
+                const params = new URLSearchParams(formData);
+                params.set('phone', rawPhone);
+                
+                if (!params.has('g-recaptcha-response')) {
+                    params.append('g-recaptcha-response', captchaResponse);
+                }
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || data.result.includes('Success')) {
+                        showToast('success', 'Дякуємо! Заявка отримана. Зв\'яжемось з вами скоро.');
+                        window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead'});
+                        this.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка: ' + (data.result || 'Спробуйте пізніше'));
+                    }
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    showToast('error', 'Сталася помилка при відправці. Перевірте з\'єднання.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+
+            /**
+             * Toast notification function
+             */
+            function showToast(type, message) {
+                Toastify({
+                    text: message,
+                    duration: 5000,
+                    gravity: "bottom",
+                    position: "center",
+                    style: {
+                        background: type === 'success' ? "#10b981" : "#ef4444",
+                        borderRadius: "12px",
+                        boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)",
+                        fontSize: "14px",
+                        fontWeight: "600"
+                    }
+                }).showToast();
+            }
+        });
+    </script>
+</body>
+</html>
