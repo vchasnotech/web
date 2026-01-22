@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags: INFOBIZ SEGMENT -->
+    <title>Масова фіскалізація для онлайн-шкіл та експертів | Auto-Fiscal EdTech</title>
+    <meta name="description" content="Автоматична видача чеків для інфобізнесу. 500+ чеків за хвилину після вебінару. Інтеграція Monobank IBAN -> Checkbox -> Email учня.">
+    <meta name="keywords" content="рро для онлайн курсів, чеки для інфобізнесу, фіскалізація вебінарів, автоматизація оплат навчання, checkbox для getcourse">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1NVVS2E0H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T1NVVS2E0H');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Auto-Fiscal for EdTech",
+      "serviceType": "Accounting Automation",
+      "areaServed": "UA",
+      "description": "Автоматизація фіскалізації оплат за навчання для онлайн-шкіл та експертів.",
+      "offers": {
+        "@type": "Offer",
+        "price": "32000",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Infobiz Gradient */
+        .edtech-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .text-gradient {
+            background: -webkit-linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        input:required:invalid, select:required:invalid { border-color: #ef4444; }
+        
+        .blob {
+            position: absolute;
+            filter: blur(40px);
+            z-index: 0;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-indigo-100">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-extrabold tracking-tight text-slate-900 uppercase">VCHASNO</span>
+                <span class="text-[10px] uppercase tracking-widest text-indigo-600 font-bold mt-1">EdTech Automation</span>
+            </div>
+            <a href="#form-section" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-full font-bold text-sm transition shadow-lg shadow-indigo-500/20 hidden sm:block">
+                Запустити систему
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-24 lg:pt-48 lg:pb-40 overflow-hidden bg-white">
+            <!-- Blobs -->
+            <div class="blob bg-purple-300 w-96 h-96 rounded-full top-0 right-0 -translate-y-1/2 translate-x-1/2"></div>
+            <div class="blob bg-indigo-300 w-96 h-96 rounded-full bottom-0 left-0 translate-y-1/2 -translate-x-1/2"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 border border-indigo-100 px-4 py-1.5 rounded-full text-xs font-bold mb-8 uppercase tracking-widest shadow-sm">
+                        <i class="fa-solid fa-graduation-cap"></i> Для онлайн-шкіл та експертів
+                    </div>
+                    <h1 class="text-4xl md:text-7xl font-extrabold leading-[1.1] mb-8 tracking-tight text-slate-900">
+                        Масова фіскалізація <br>
+                        <span class="text-gradient">500 чеків за 1 хвилину</span>
+                    </h1>
+                    <p class="text-lg md:text-2xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+                        Після вебінару зайшло 100 оплат на IBAN? Не наймайте бухгалтера. Наш скрипт автоматично фіскалізує оплати Monobank та відправляє чеки учням на Email.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                        <a href="#form-section" class="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-5 rounded-full font-bold text-lg transition shadow-2xl shadow-indigo-600/30">
+                            Автоматизувати запуск
+                        </a>
+                        <div class="flex items-center gap-3 px-8 py-5 bg-white border border-slate-200 rounded-full shadow-sm text-slate-600 font-semibold">
+                            <i class="fa-solid fa-play text-indigo-600"></i>
+                            Дивитися демо (1 хв)
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 flex items-center justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition duration-500">
+                        <!-- Fake logos for Trust -->
+                        <span class="font-bold text-xl text-slate-400 flex items-center gap-2"><i class="fa-solid fa-check-circle"></i> Checkbox</span>
+                        <span class="font-bold text-xl text-slate-400 flex items-center gap-2"><i class="fa-solid fa-university"></i> Monobank</span>
+                        <span class="font-bold text-xl text-slate-400 flex items-center gap-2"><i class="fa-brands fa-google"></i> Google Sheets</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pain Points -->
+        <section class="py-24 bg-slate-50 border-y border-slate-200">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Кошмар будь-якого запуску</h2>
+                    <p class="text-slate-500 text-lg">Коли продажі йдуть вгору, бухгалтерія лягає.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 hover:border-indigo-200 hover:shadow-xl transition duration-300">
+                        <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center mb-6 text-indigo-600 text-2xl">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Пік оплат після вебінару</h3>
+                        <p class="text-slate-600 leading-relaxed">Ввечері заходить 50-200 оплат за годину. Вручну вбити це в пРРО нереально. Відкладати на завтра — порушення закону.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 hover:border-indigo-200 hover:shadow-xl transition duration-300">
+                        <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-6 text-purple-600 text-2xl">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">«А де мій чек?»</h3>
+                        <p class="text-slate-600 leading-relaxed">Саппорт завалений питаннями про оплату. Наша система сама відправляє чек учню на Email/SMS, знімаючи навантаження з менеджерів.</p>
+                    </div>
+                    <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 hover:border-indigo-200 hover:shadow-xl transition duration-300">
+                        <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6 text-red-600 text-2xl">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Ризик визнання дроблення</h3>
+                        <p class="text-slate-600 leading-relaxed">Прийом оплат на особисті картки — це ризик блокування рахунків та штрафів. Прийом на IBAN з авто-чеком — це біла, масштабована схема.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Visualization -->
+        <section class="py-24 bg-white overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="bg-slate-900 rounded-[3rem] p-8 md:p-16 text-white relative overflow-hidden shadow-2xl">
+                    <!-- Background Pattern -->
+                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 30px 30px;"></div>
+                    
+                    <div class="grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                        <div>
+                            <div class="text-indigo-400 font-bold tracking-widest uppercase mb-4 text-sm">Як це працює</div>
+                            <h2 class="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">Повний автопілот <br>вашої бухгалтерії</h2>
+                            <ul class="space-y-6">
+                                <li class="flex gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 font-bold text-sm">1</div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">Оплата курсу</h4>
+                                        <p class="text-slate-400 text-sm">Учень оплачує на реквізити IBAN (економія 1-2% на еквайрингу).</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 font-bold text-sm">2</div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">Миттєва реакція</h4>
+                                        <p class="text-slate-400 text-sm">Скрипт бачить оплату, розпізнає назву курсу в коментарі.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 font-bold text-sm">3</div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">Фіскалізація + Доставка</h4>
+                                        <p class="text-slate-400 text-sm">Чек створюється в Checkbox і летить учню на пошту. Ви спите.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Visual Card -->
+                        <div class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-8 transform rotate-1 hover:rotate-0 transition duration-500">
+                            <div class="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-check"></i></div>
+                                    <div>
+                                        <div class="font-bold">Успішна оплата</div>
+                                        <div class="text-xs text-slate-300">Monobank API</div>
+                                    </div>
+                                </div>
+                                <div class="text-xl font-bold text-emerald-400">+ 5 900 ₴</div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-slate-800 p-4 rounded-xl border border-white/5 flex items-center justify-between">
+                                    <span class="text-sm text-slate-300">Статус чека:</span>
+                                    <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded font-bold">ФІСКАЛІЗОВАНО</span>
+                                </div>
+                                <div class="bg-slate-800 p-4 rounded-xl border border-white/5 flex items-center justify-between">
+                                    <span class="text-sm text-slate-300">Призначення:</span>
+                                    <span class="text-xs text-white font-mono">Навчання: Курс Python (Start)</span>
+                                </div>
+                                <div class="bg-indigo-600 p-4 rounded-xl flex items-center gap-3 shadow-lg">
+                                    <i class="fa-solid fa-envelope text-white"></i>
+                                    <div class="text-sm font-bold">Email sent to: student@gmail.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="py-24 bg-slate-50 border-t border-slate-200">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-extrabold mb-6">Дешевше, ніж <br>помічник за 1 місяць</h2>
+                    <p class="text-slate-600 text-lg">Ви платите один раз за налаштування системи. Далі — 0 грн/міс за скрипт.</p>
+                </div>
+
+                <div class="max-w-md mx-auto bg-white rounded-[2.5rem] p-10 shadow-xl border border-indigo-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                    
+                    <div class="flex justify-between items-end mb-8">
+                        <div>
+                            <div class="text-sm font-bold text-slate-400 uppercase tracking-widest">Setup Fee</div>
+                            <div class="text-5xl font-extrabold text-slate-900 mt-2">32 000 ₴</div>
+                        </div>
+                        <div class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg text-xs font-bold mb-2">Разово</div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-3 text-slate-700 font-medium">
+                            <i class="fa-solid fa-check text-indigo-500"></i> Інтеграція Monobank API
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700 font-medium">
+                            <i class="fa-solid fa-check text-indigo-500"></i> Налаштування Checkbox
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700 font-medium">
+                            <i class="fa-solid fa-check text-indigo-500"></i> Авто-відправка Email учням
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700 font-medium">
+                            <i class="fa-solid fa-check text-indigo-500"></i> Налаштування видів послуг
+                        </li>
+                    </ul>
+                    
+                    <a href="#form-section" class="block w-full bg-slate-900 text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-indigo-600 transition shadow-lg">Замовити впровадження</a>
+                    <p class="text-xs text-center text-slate-400 mt-4">Впровадження займає 3-5 робочих днів</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section id="form-section" class="py-24 bg-white relative overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="max-w-5xl mx-auto flex flex-col lg:flex-row shadow-2xl rounded-[3rem] overflow-hidden">
+                    
+                    <!-- Left: Info -->
+                    <div class="lg:w-2/5 bg-indigo-900 p-12 lg:p-16 text-white relative">
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-extrabold mb-6 leading-tight">Готові масштабувати свою школу?</h3>
+                            <p class="text-indigo-100 mb-8 leading-relaxed">Заповніть форму, щоб отримати консультацію. Ми покажемо, як система працює на прикладі інших шкіл.</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"><i class="fa-solid fa-file-contract"></i></div>
+                                    <span class="font-bold text-sm">Офіційний договір + NDA</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"><i class="fa-solid fa-code"></i></div>
+                                    <span class="font-bold text-sm">Код залишається у вас</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Decor -->
+                        <div class="absolute bottom-0 right-0 w-64 h-64 bg-indigo-600 rounded-full blur-3xl opacity-50 translate-x-1/3 translate-y-1/3"></div>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="lg:w-3/5 bg-white p-12 lg:p-16">
+                        <form id="leadForm" class="space-y-6">
+                            <input type="hidden" name="pageid" id="pageidInput">
+                            
+                            <!-- SEGMENT IDENTIFIER -->
+                            <input type="hidden" name="source_info" value="infobiz_fiscal_automation">
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Ім'я</label>
+                                    <input type="text" name="name" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Email</label>
+                                    <input type="email" name="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Телефон</label>
+                                    <input type="tel" name="phone" id="phoneInput" required placeholder="+380..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Ніша / Школа</label>
+                                    <input type="text" name="company" required placeholder="Напр. Курси англійської" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Кількість транзакцій (орієнтовно)</label>
+                                <select name="service" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 transition cursor-pointer">
+                                    <option value="Start">До 100 в місяць</option>
+                                    <option value="Growth">100 - 1000 в місяць</option>
+                                    <option value="Scale">1000+ (Потрібен Highload)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Коментар</label>
+                                <textarea name="task" rows="2" placeholder="На якій платформі курс? (GetCourse/Свій сайт/Telegram)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 transition"></textarea>
+                            </div>
+
+                            <div class="pt-2">
+                                <div class="g-recaptcha" data-sitekey="6LfMjDYsAAAAAJmEyqg5PKj6RqinCp3b76-PGw0Z"></div>
+                            </div>
+
+                            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                                Отримати консультацію
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="py-24 bg-slate-50 border-t border-slate-200">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="text-3xl font-extrabold mb-12 text-center">Питання експертів</h2>
+                <div class="space-y-4">
+                    <details class="group bg-white border border-slate-200 rounded-2xl p-6 shadow-sm cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold text-slate-900 list-none">
+                            Чи потрібно купувати CRM?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-indigo-600"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Ні. Наше рішення дозволяє працювати взагалі без CRM, використовуючи Google Таблицю як базу даних учнів. Але якщо у вас є CRM (KeyCRM, SalesDrive), ми можемо передавати дані і туди.</p>
+                    </details>
+                    <details class="group bg-white border border-slate-200 rounded-2xl p-6 shadow-sm cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold text-slate-900 list-none">
+                            Що буде написано в чеку?
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition text-indigo-600"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 text-sm leading-relaxed">Ми налаштовуємо правильне найменування послуг: "Інформаційно-консультаційні послуги" або "Доступ до онлайн-курсу", щоб у податкової не було питань щодо КВЕДів.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                <span class="text-2xl font-extrabold text-white">VCHASNO</span>
+            </div>
+            <p class="text-xs mb-8">Спеціалізовані рішення для автоматизації інфобізнесу.</p>
+            <div class="text-xs text-slate-600">
+                &copy; 2026 VCHASNO.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Unique ID
+            const pageidInput = document.getElementById('pageidInput');
+            if (pageidInput) {
+                pageidInput.value = crypto.randomUUID();
+            }
+
+            // Phone Mask
+            const phoneInput = document.getElementById('phoneInput');
+            phoneInput.addEventListener('input', (e) => {
+                let val = e.target.value.replace(/\D/g, '');
+                if (val.length > 12) val = val.slice(0, 12);
+                e.target.value = val;
+            });
+
+            // Form Submit
+            document.getElementById('leadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const captchaResponse = grecaptcha.getResponse();
+                if (!captchaResponse) {
+                    showToast('error', 'Підтвердіть, що ви не робот');
+                    return;
+                }
+
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'Відправка...';
+
+                const formData = new FormData(this);
+                const rawPhone = formData.get('phone').replace(/\D/g, ''); 
+                const params = new URLSearchParams(formData);
+                params.set('phone', rawPhone);
+                params.append('g-recaptcha-response', captchaResponse);
+
+                const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+
+                fetch(`${scriptURL}?${params.toString()}`, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200 || (data.result && data.result.includes('Success'))) {
+                        showToast('success', 'Заявка прийнята! Ми напишемо вам в найближчий час.');
+                        if (window.dataLayer) {
+                            window.dataLayer.push({'event': 'form_submission_success', 'form_type': 'lead_infobiz'});
+                        }
+                        this.reset();
+                        grecaptcha.reset(); 
+                    } else {
+                        showToast('error', 'Помилка сервера. Спробуйте пізніше.');
+                    }
+                })
+                .catch(err => {
+                    showToast('error', 'Помилка з\'єднання.');
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                });
+            });
+
+            function showToast(type, message) {
+                Toastify({
+                    text: message,
+                    duration: 5000,
+                    gravity: "bottom",
+                    position: "center",
+                    style: {
+                        background: type === 'success' ? "#4f46e5" : "#ef4444",
+                        borderRadius: "8px",
+                        fontSize: "14px",
+                        fontWeight: "600"
+                    }
+                }).showToast();
+            }
+        });
+    </script>
+</body>
+</html>
