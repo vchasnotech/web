@@ -441,7 +441,7 @@
                     if (!params.has('g-recaptcha-response')) {
                         params.append('g-recaptcha-response', captchaResponse);
                     }
-                    const scriptURL = "https://script.google.com/macros/s/AKfycbzY9v3k4_Ie6lqCIHfHMeJTke_OYmIcV47tnKwB2KVNqw4TwBvs18erHoa58a5GJ31g/exec";
+                    const scriptURL = "https://script.google.com/macros/s/AKfycbzjaOR3IlxQGtHYxz1EK2KOfYcVb_bdp4EPe5NKKG3LR4Uad3G9-2UdJjdrtuyS1962OA/exec";
 
                     fetch(`${scriptURL}?${params.toString()}`, { method: 'GET', mode: 'cors' })
                     .then(response => response.ok ? response.json() : Promise.reject(new Error(`HTTP error! status: ${response.status}`)))
